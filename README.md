@@ -1,4 +1,5 @@
-level 2 project setup without eslint.
+level 2 project setup without eslint. <br>
+interface, schema,model, db query
 <br> 
 run project: 
 <br>
