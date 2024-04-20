@@ -6,3 +6,8 @@ route, controller, service
 run project: 
 <br>
 ts-node-dev --respawn --transpile-only src/server.ts
+<br>
+
+Npm dependencies update:
+<br>
+https://luisrangelc.medium.com/how-to-update-npm-dependencies-22548ab6f897
