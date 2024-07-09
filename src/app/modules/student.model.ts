@@ -183,6 +183,7 @@ const studentSchema = new Schema<Student, StudentInstanceModel, StudentMethods>(
     toJSON: {
       virtuals: true,
     },
+    
   }
 );
 // // {
