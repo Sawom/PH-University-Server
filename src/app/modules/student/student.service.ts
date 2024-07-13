@@ -1,7 +1,7 @@
 // service e all business logic thakbe
 // service database e query calabe
-import { StudentModel } from "../student.model";
 import { Student } from "./student.interface";
+import { StudentModel } from "./student.model";
 
 const createStudentIntoDB = async (studentData: Student) => {
   // 1st time
