@@ -1,18 +1,8 @@
 import { Request, Response } from "express";
 import { StudentService } from "./student.service";
-import studentValidationZodSchema from "./student.zod.validation";
-// validation with zod eta controller e korbo
-
-// *** controller request , response handle kore
-// import studentValidationSchema from "./student.joi.validation";
-
-// joi nijei ekta schema dey tai eta model e use korbo na.
-// alada file e joi er schema likhbo. chat gpt diye student model er code ta dile joi er schema banay dey
-// data gula ashteche controller theke. client data pathacche.
-// receive hocche 'req.body' te. joi diye mongose er data validate kore
 
 // create student 
-
+// user age create korte hobe tai ekhaner function user e niye geche
 
 // get Single student 
 const getSinglestudent = async (req: Request, res: Response) => {
@@ -77,7 +67,6 @@ const deleteStudent = async (req: Request, res: Response) => {
 
 
 export const StudentController = {
-  createStudent,
   getAllstudents,
   getSinglestudent,
   deleteStudent,

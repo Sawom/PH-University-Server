@@ -1,19 +1,37 @@
-import { TUser } from "./user.interface";
+import config from "../../config";
+import { Student } from "../student/student.interface";
+import { NewUser } from "./user.interface";
+import { User } from "./user.model";
 
-const createStudentIntoDB = async (studentData: TUser) => {
-  // 1st time
-  // const result = await StudentModel.create(studentData); // build in static method
-  // return result;
-  // instance use korle uporer line ta katte hoy cz oita static method
+const createStudentIntoDB = async (password: string, studentData: Student) => {
+    //    create user obj
+    const user : NewUser = {};
+   
+    // if password is not given, use default password
+    if(!password){
+        password = config.default_password as string;
+    }
 
+    // set student role
+    user.role = 'student';
 
-  //**  custom instance method
-  // step 4. implimentation update
-  // student = instance
-  const student = new StudentModel(studentData); // create an  Instance
-  if (await student.isUserExists(studentData.id)) {
-    throw new Error("user has already exists");
-  }
-  const result = await student.save(); // built in instance method
-  return result;
+    // set manually generated id
+    user.id = '2030100001';
+
+    // create a user
+    const result = await User.create(user);
+    
+    // create a student
+    if( Object.keys(result).length){
+        // set id, _id as user
+        studentData.id = result.id;
+
+    }
+    
+    
+    return result;
+};
+
+export const UserServices = {
+  createStudentIntoDB,
 };

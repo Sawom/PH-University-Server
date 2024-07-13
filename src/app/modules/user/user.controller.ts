@@ -1,18 +1,11 @@
+import { UserServices } from "./user.service";
+import { Student } from "../student/student.interface";
+import { User } from "./user.model";
+
 const createStudent = async (req: Request, res: Response) => {
   try {
-
-    // create a schema validation using joi/zod e same line likha lage
-    const student = req.body.student; // student data zeta student object hoye zabe
-
-    // // data validate using joi
-    // const {error, value} = studentValidationSchema.validate(student)
-
-
-    // data validate using zod
-    // const zodParsedData = studentValidationZodSchema.parse(student)
-
-    // will call service function to send this data
-    const result = await StudentService.createStudentIntoDB(zodParsedData);
+    const {password: string, studentData: Student} = req.body;
+    const result = await UserServices.createStudentIntoDB( password, studentData);
 
     // send response with a message
     res.status(200).json({
