@@ -1,11 +1,11 @@
 import { UserServices } from "./user.service";
 import { Student } from "../student/student.interface";
 import { User } from "./user.model";
-
+import { NextFunction, Request, Response } from 'express';
 const createStudent = async (req: Request, res: Response) => {
   try {
-    const {password: string, studentData: Student} = req.body;
-    const result = await UserServices.createStudentIntoDB( password, studentData);
+    const {password, studentData: Student} = req.body;
+    const result = await UserServices.createStudentIntoDB( password, Student);
 
     // send response with a message
     res.status(200).json({
@@ -21,4 +21,8 @@ const createStudent = async (req: Request, res: Response) => {
       error: err,
     });
   }
+};
+
+export const UserControllers = {
+  createStudent,
 };
