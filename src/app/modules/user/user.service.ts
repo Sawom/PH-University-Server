@@ -1,25 +1,25 @@
 import config from "../../config";
 import { Student } from "../student/student.interface";
-import { NewUser } from "./user.interface";
+import { NewUser, TUser } from "./user.interface";
 import { User } from "./user.model";
 
 const createStudentIntoDB = async (password: string, studentData: Student) => {
     //    create user obj
-    const user : NewUser = {};
+    const userData : Partial<TUser> = {};
+    // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
    
     // if password is not given, use default password
-    if(!password){
-        password = config.default_password as string;
-    }
+    userData.password = password || ( config.default_password as string ) ;
+    
 
     // set student role
-    user.role = 'student';
+    userData.role = 'student';
 
     // set manually generated id
-    user.id = '2030100001';
+    userData.id = '2030100001';
 
     // create a user
-    const result = await User.create(user);
+    const result = await User.create(userData);
     
     // create a student
     if( Object.keys(result).length){

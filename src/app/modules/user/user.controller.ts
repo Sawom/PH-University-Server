@@ -1,7 +1,9 @@
+// import httpStatus from 'http-status';
 import { UserServices } from "./user.service";
 import { Student } from "../student/student.interface";
 import { User } from "./user.model";
 import { NextFunction, Request, Response } from 'express';
+
 const createStudent = async (req: Request, res: Response) => {
   try {
     const {password, studentData: Student} = req.body;
