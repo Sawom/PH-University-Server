@@ -1,7 +1,7 @@
 import config from "../../config";
 import { Student } from "../student/student.interface";
 import { StudentModel } from "../student/student.model";
-import { NewUser, TUser } from "./user.interface";
+import { TUser } from "./user.interface";
 import { User } from "./user.model";
 
 const createStudentIntoDB = async (password: string, studentData: Student) => {
@@ -11,7 +11,6 @@ const createStudentIntoDB = async (password: string, studentData: Student) => {
    
     // if password is not given, use default password
     userData.password = password || ( config.default_password as string ) ;
-    
 
     // set student role
     userData.role = 'student';
@@ -30,7 +29,7 @@ const createStudentIntoDB = async (password: string, studentData: Student) => {
         const newStudent = await StudentModel.create(studentData);
         return newStudent;
     }
-    
+
 };
 
 export const UserServices = {
