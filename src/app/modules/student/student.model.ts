@@ -9,8 +9,7 @@ import {
   Guardian,
   LocalGuardian,
   Student,
-  StudentInstanceModel,
-  StudentMethods,
+  StudentModel,
   UserName,
 } from "./student.interface";
 // password bcrypt er kaj
@@ -49,15 +48,8 @@ const userNameSchema = new Schema<UserName>({
     type: String,
     trim: true,
     required: [true, "last name is required"],
-
-    // validate by validator library
-    // npm i validator
-    // npm i -D @types/validator
-    validate: {
-      validator: (value: string) => validator.isAlpha(value),
-      message: "{VALUE} is not valid",
-    },
   },
+
 });
 
 const guardianSchema = new Schema<Guardian>({
@@ -109,7 +101,7 @@ const localGuradianSchema = new Schema<LocalGuardian>({
 //**  custom instance method
 // step 3. model e update (instant method rest part)
 // StudentInstanceModel, StudentMethods ..... egula parameter hisebe add kore dite hoy
-const studentSchema = new Schema<Student, StudentInstanceModel, StudentMethods>(
+const studentSchema = new Schema<Student, StudentModel>(
   {
     id: {
       type: String,
@@ -121,7 +113,7 @@ const studentSchema = new Schema<Student, StudentInstanceModel, StudentMethods>(
       type: Schema.Types.ObjectId,
       required: [true, "user ID is required"],
       unique: true,
-      ref: 'User', // student er sathe user er connect korar jnno
+      ref: 'User', // student er sathe user er connect korar jnno ref
     },
     password: {
       type: String,
@@ -255,13 +247,13 @@ studentSchema.pre("aggregate", function (next) {
 
 //**  custom instance method
 // step 4. implimentation
-studentSchema.methods.isUserExists = async function (id: string | number) : Promise<Student | null> {
-  const existingUser = await StudentModel.findOne({ id: id });
+studentSchema.statics.isUserExists = async function (id: string ) {
+  const existingUser = await ModelofStudent.findOne({ id: id });
   return existingUser;
 };
 // step 4. implementation... little kaj
 // StudentModel update: StudentInstanceModel add kora lagbe
-export const StudentModel = model<Student, StudentInstanceModel>(
+export const ModelofStudent = model<Student, StudentModel>(
   "Student",
   studentSchema
 );

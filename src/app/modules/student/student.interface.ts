@@ -44,19 +44,7 @@ export type Student = {
   isDeleted: boolean;
 };
 
-//** custom instance method diye dekhbo kono user database e ache kina
-// step:  1. create type/interface. (StudentMethods) (student.interface e kaj)
-export type StudentMethods = {
-  isUserExists(id: string | number): Promise<Student | null>; // type Student pura tai return kore dicche. typescript er function type
-  // return korbe Promise cz asynchronus. r ekhane functionm er type tai Promise
-};
-// step 2. create model (StudentModel) (student.interface e kaj)
-export type StudentInstanceModel = Model<
-  Student,
-  Record<string, never>,
-  StudentMethods
->;
-// then
-// step 3. model e update (student.model e kaj)
-// step 4. implimentation (student.model e kaj) & (student.service e kaj )
-// empty obj rakha zabe na. ejnno Record<string, never> use korte hoy
+
+export interface StudentModel extends Model<Student> {
+  isUserExists(id: string): Promise<Student | null>;
+}

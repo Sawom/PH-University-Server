@@ -68,3 +68,10 @@ then route, service, controller, validate zod(or joi zetai kori)
 // hasssing bolte real password ta save kore na db te.
 // BCRYPT_SALT_ROUNDS .env file e ekta score dite hobe.
 // erpor index.ts theke export korte hobe.
+
+
+***Create User As Student***
+interface, model e update korte hobe student er
+
+user.service, e giye
+// create a student
