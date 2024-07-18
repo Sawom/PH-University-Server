@@ -3,7 +3,6 @@
 // create schema and model here
 // required: true, maxlength etc..  >> mane eta build in validation
 import { Schema, model } from "mongoose";
-import validator from "validator";
 
 import {
   Guardian,
@@ -25,20 +24,6 @@ const userNameSchema = new Schema<UserName>({
     trim: true, // space remove kore samne piche thakle
     // custom error msg.
     maxlength: [20, "first name can not be more than 20 character"],
-
-    // custom validate by function
-    // joi, zod third party validation library use korle custom validation er dorkar nai.
-
-    // validate: {
-    //   validator: function (value: string) {
-    //     const firstNameStr = value.charAt(0).toUpperCase() + value.slice(1); //first name 'Sawom' emn hobe
-    //     if (value !== firstNameStr) {
-    //       return false;
-    //     }
-    //     return true;
-    //   },
-    //   message: "{VALUE} is not in capitalize format",
-    // },
   },
   middleName: {
     type: String,
@@ -49,7 +34,6 @@ const userNameSchema = new Schema<UserName>({
     trim: true,
     required: [true, "last name is required"],
   },
-
 });
 
 const guardianSchema = new Schema<Guardian>({
@@ -109,21 +93,15 @@ const studentSchema = new Schema<Student, StudentModel>(
       unique: true,
     },
     // user
-    user:{
+    user: {
       type: Schema.Types.ObjectId,
       required: [true, "user ID is required"],
       unique: true,
-      ref: 'User', // student er sathe user er connect korar jnno ref
+      ref: "User", // student er sathe user er connect korar jnno ref
     },
-    password: {
-      type: String,
-      required: [true, "password is required"],
-      maxlength: [10, "password can not be more than 10 characters"],
-    },
-    // id duplicate na howar jnno unique use kora
     name: {
       type: userNameSchema,
-      required: true,
+      required: [true, "Name is required"],
     },
     // enum type
     gender: {
@@ -132,26 +110,22 @@ const studentSchema = new Schema<Student, StudentModel>(
         values: ["male", "female"],
         message: "{VALUE} is not valid",
       },
-      required: true,
+      required: [true, "Gender is required"],
     },
     dateOfBirth: { type: String },
     email: {
       type: String,
       required: true,
       unique: true,
-      // validate by validator library
-
-      // validate:{
-      //   validator: (value: string) => validator.isEmail(value),
-      //   message: "{VALUE} is not a valid email type",
-      // },
     },
     contactNo: { type: String, required: true },
     emergencyContactNo: { type: String, required: true },
     bloodGroup: {
       type: String,
-      enum: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
-      required: true,
+      enum: {
+        values: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"],
+        message: "{VALUE} is not a valid blood group",
+      },
     },
     presentAddress: { type: String, required: true },
     permanentAddress: { type: String, required: true },
@@ -174,7 +148,6 @@ const studentSchema = new Schema<Student, StudentModel>(
     toJSON: {
       virtuals: true,
     },
-    
   }
 );
 // // {
@@ -247,8 +220,9 @@ studentSchema.pre("aggregate", function (next) {
 
 //**  custom instance method
 // step 4. implimentation
-studentSchema.statics.isUserExists = async function (id: string ) {
-  const existingUser = await ModelofStudent.findOne({ id: id });
+//creating a custom static method
+studentSchema.statics.isUserExists = async function (id: string) {
+  const existingUser = await ModelofStudent.findOne({ id });
   return existingUser;
 };
 // step 4. implementation... little kaj
