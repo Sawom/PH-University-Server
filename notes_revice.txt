@@ -75,3 +75,5 @@ interface, model e update korte hobe student er
 
 user.service, e giye
 // create a student
+user.model.ts e,
+password bycrypt er kaj

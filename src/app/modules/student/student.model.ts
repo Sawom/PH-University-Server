@@ -11,9 +11,6 @@ import {
   StudentModel,
   UserName,
 } from "./student.interface";
-// password bcrypt er kaj
-import bcrypt from "bcrypt";
-import config from "../../config";
 
 const userNameSchema = new Schema<UserName>({
   firstName: {
@@ -169,26 +166,7 @@ studentSchema.virtual("fullName").get(function () {
 // *** pre hook middleware hook use kore password k database e save korar age hashing korlam
 // password hashing
 // pre save middleware/hook: will work on create() save()
-studentSchema.pre("save", async function (next) {
-  console.log(this, "pre hook: we have saved data");
-  // hashing password and save to db.
-  // hasssing bolte real password ta save kore na db te.
-  const user = this;
-  // BCRYPT_SALT_ROUNDS .env file e ekta score dite hobe.
-  // erpor index.ts theke export korte hobe.
-  user.password = await bcrypt.hash(
-    user.password,
-    Number(config.bcrypt_salt_rounds)
-  );
-  next();
-});
 
-//***  post save middleware/hook *** password empty kore dibo
-studentSchema.post("save", function (doc, next) {
-  doc.password = "";
-  next();
-  console.log(this, "post hook: we have saved data");
-}); // pass empty done
 
 //***  query middleware*******
 // ei function diye delete howa data gula dekhabo na.
