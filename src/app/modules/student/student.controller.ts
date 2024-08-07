@@ -1,11 +1,15 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
 
-// create student 
+// create student
 // user age create korte hobe tai ekhaner function user e niye geche
 
-// get Single student 
-const getSinglestudent = async (req: Request, res: Response) => {
+// get Single student
+const getSinglestudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { studentId } = req.params;
     const result = await StudentService.getSinglestudentFromDB(studentId);
@@ -16,16 +20,22 @@ const getSinglestudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: err,
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message || 'something went wrong',
+    //   error: err,
+    // });
+    next(err);
+    // err handle ei function diyeo hoy
   }
 };
 
 // get all students
-const getAllstudents = async (req: Request, res: Response) => {
+const getAllstudents = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const result = await StudentService.getAllstudentFromDB();
     // send response
@@ -36,20 +46,27 @@ const getAllstudents = async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     // vs code er console.log e error na dekhay ekhn postmane dekhabe
-    res.status(500).json({
-      success: false,
-      message: "something went wrong",
-      error: err,
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: "something went wrong",
+    //   error: err,
+    // });
+
+    next(err);
+    // err handle ei function diyeo hoy
   }
 };
 
 // delete students
-const deleteStudent = async (req: Request, res: Response) => {
+const deleteStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const { studentId } = req.params;
     const result = await StudentService.deleteStudentFromDB(studentId);
-    
+
     // send response
     res.status(200).json({
       success: true,
@@ -57,14 +74,17 @@ const deleteStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err: any) {
-    res.status(500).json({
-      success: false,
-      message: err.message || 'something went wrong',
-      error: err,
-    });
+
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message || "something went wrong",
+    //   error: err,
+    // });
+
+    next(err);
+    // err handle ei function diyeo hoy
   }
 };
-
 
 export const StudentController = {
   getAllstudents,
