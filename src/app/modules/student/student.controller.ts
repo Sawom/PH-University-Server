@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StudentService } from "./student.service";
+import sendResponse from "../../utils/sendResponse";
+import httpStatus from "http-status";
 
 // create student
 // user age create korte hobe tai ekhaner function user e niye geche
@@ -13,20 +15,30 @@ const getSinglestudent = async (
   try {
     const { studentId } = req.params;
     const result = await StudentService.getSinglestudentFromDB(studentId);
+    
     // send response
-    res.status(200).json({
+    // res.status(200).json({
+    //   success: true,
+    //   message: "student is get successfully",
+    //   data: result,
+    // });
+
+    // send response er kaj controller e evabeo kora zay.
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
       message: "student is get successfully",
       data: result,
     });
+
   } catch (err: any) {
     // res.status(500).json({
     //   success: false,
     //   message: err.message || 'something went wrong',
     //   error: err,
     // });
-    next(err);
-    // err handle ei function diyeo hoy
+
+    next(err); // err handle ei function diyeo hoy
   }
 };
 
@@ -38,12 +50,23 @@ const getAllstudents = async (
 ) => {
   try {
     const result = await StudentService.getAllstudentFromDB();
+    
     // send response
-    res.status(200).json({
+    // res.status(200).json({
+    //   success: true,
+    //   message: "students are getting successfully",
+    //   data: result,
+    // });
+
+    // send response er kaj controller e evabeo kora zay.
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
       message: "students are getting successfully",
       data: result,
     });
+
+
   } catch (err: any) {
     // vs code er console.log e error na dekhay ekhn postmane dekhabe
     // res.status(500).json({
@@ -68,11 +91,21 @@ const deleteStudent = async (
     const result = await StudentService.deleteStudentFromDB(studentId);
 
     // send response
-    res.status(200).json({
+    // res.status(200).json({
+    //   success: true,
+    //   message: "student is deleted successfully",
+    //   data: result,
+    // });
+
+    // send response er kaj controller e evabeo kora zay.
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
       success: true,
-      message: "student is deleted successfully",
+      message: "students is deleted successfully",
       data: result,
     });
+
+
   } catch (err: any) {
 
     // res.status(500).json({
