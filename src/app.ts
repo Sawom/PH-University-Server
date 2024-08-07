@@ -3,6 +3,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 
 import router from "./app/routes";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 const app: Application = express();
 const port = 3000;
 
@@ -21,7 +22,9 @@ const getController = (req: Request, res: Response) => {
 app.get("/", getController);
 
 // **global error handler
-
 app.use(globalErrorHandler);
+
+// not found status
+app.use(notFound);
 
 export default app;
