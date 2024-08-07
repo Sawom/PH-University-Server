@@ -13,6 +13,7 @@ app.use(cors());
 
 // application routes. /api/v1/students ei route e gele student.routes e cole ashbe.
 // zetay */create-student* ache
+// eta ekhn routes.ts e ache
 app.use("/api/v1", router);
 
 const getController = (req: Request, res: Response) => {
