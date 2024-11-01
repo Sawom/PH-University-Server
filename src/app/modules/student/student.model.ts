@@ -147,6 +147,7 @@ const studentSchema = new Schema<Student, StudentModel>(
     },
   }
 );
+
 // // {
 //   toJSON:{
 //     virtuals: true,
@@ -156,6 +157,7 @@ const studentSchema = new Schema<Student, StudentModel>(
 //*******  virtual data *************
 //******  virtual data: zei data direct database e nai, but ami just client side e dekhaite cai emn data k database theke ene dekhay dea.
 // example: database e fullname nam e kichu nai. but 1stname , middle, last name ache. tai tinta milay ami fullname dekhabo.. eta virtual data.
+
 studentSchema.virtual("fullName").get(function () {
   return `${this.name.firstName} + ${this.name.middleName} + ${this.name.lastName}`;
 });
@@ -172,6 +174,7 @@ studentSchema.virtual("fullName").get(function () {
 // ei function diye delete howa data gula dekhabo na.
 // amra actually data remove kortechi na. data zokhn delete hobe tokhn isDelete: true kore ekta flag e on rakhbo. data ta show korbo na.
 // data remove korle datar consistency nosto hoy tai data ta hide kore rakhbo zate show na kore delete howa data
+
 studentSchema.pre("find", function (next) {
   // console.log(this);
   this.find({ isDeleted: { $ne: true } }); // current query k bujhabe
@@ -180,6 +183,7 @@ studentSchema.pre("find", function (next) {
 
 // find_one er opr delete kaj kore. mane findone query calay dile delete howa data pawa zay.
 //  eijnno findone er opr eo 'pre' calabo zeno delete howa data pawa na zay
+
 studentSchema.pre("findOne", function (next) {
   // console.log(this);
   this.find({ isDeleted: { $ne: true } }); // current query k bujhabe
