@@ -1,37 +1,51 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
+import { TAcademicSemester, TMonths } from "./academicSemester.interface";
 
-import { TUser } from './user.interface';
+const months : TMonths[] = [
+   "January",
+   "February",
+   "March",
+   "April",
+   "May",
+   "June",
+   "July",
+   "August",
+   "September",
+   "October",
+   "November",
+   "December",
+];
 
-
-const userSchema = new Schema<TUser>(
+const academicSemesterSchema = new Schema<TAcademicSemester>(
   {
-    id: {
+    name: {
       type: String,
       required: true,
     },
-    password: {
+    year: {
+      type: Date,
+      required: true,
+    },
+    code: {
       type: String,
       required: true,
     },
-    needsPasswordChange: {
-      type: Boolean,
-      default: true,
-    },
-    role: {
+    startMonth: {
       type: String,
-      enum: ['student', 'faculty', 'admin'],
+      enum: months,
     },
-    status: {
+    endMonth: {
       type: String,
-      enum: ['in-progress', 'blocked'],
-      default: 'in-progress',
-    },
-    isDeleted: {
-      type: Boolean,
-      default: false,
-    },
+      enum: months,
+    }
+    
   },
   {
     timestamps: true,
-  },
+  }
+);
+
+export const AcademicSemesterModel = model<TAcademicSemester>(
+    'AcademicSemester',
+    academicSemesterSchema,
 );
