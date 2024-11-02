@@ -6,7 +6,7 @@ const createAcademicSemesterValidationSchema = z.object({
   body: z.object({
     // as [string, ...string[]] eta zod er type. eta dite hoy evabe
     name: z.enum([...AcademicSemesterName] as [string, ...string[]] ),
-    year: z.date(),
+    year: z.string(),
     // code mane semester code
     code: z.enum([...AcademicSemesterCode] as [string, ...string[]] ),
     startMonth: z.enum([...months ] as [string, ...string[]] ),
