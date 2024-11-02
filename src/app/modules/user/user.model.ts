@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 import config from '../../config';
 import { TUser } from './user.interface';
 import bcrypt from 'bcrypt';
-// password bcrypt er kaj
+// password bcrypt er kaj ei model ei
 
 const userSchema = new Schema<TUser>(
   {
