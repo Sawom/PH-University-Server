@@ -33,7 +33,7 @@ const getAllAcademicSemestersFromDB = async()=>{
 }
 
 // get single semester data
-const getSingleSemesterFromDB = async(id: string)=>{
+const getSingleAcademicSemesterFromDB = async(id: string)=>{
     const result = await AcademicSemesterModel.findById(id);
     return result;
 }
@@ -60,6 +60,6 @@ const updateAcademicSemesterIntoDB = async (
 export const AcademicSemesterServices = {
     createAcademicSemesterIntoDB,
     getAllAcademicSemestersFromDB,
-    getSingleSemesterFromDB,
+    getSingleAcademicSemesterFromDB,
     updateAcademicSemesterIntoDB,
 }
