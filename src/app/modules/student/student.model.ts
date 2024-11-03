@@ -135,6 +135,11 @@ const studentSchema = new Schema<Student, StudentModel>(
       required: true,
     },
     profileImg: { type: String },
+    // admission semester er type hobe object id
+    admissionSemester:{
+      type: Schema.Types.ObjectId,
+      ref:'AcademicSemester',
+    },
     isDeleted: {
       type: Boolean,
       default: false,
