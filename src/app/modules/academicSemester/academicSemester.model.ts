@@ -42,6 +42,7 @@ const academicSemesterSchema = new Schema<TAcademicSemester>(
 // same semester and year thakbe na. zemon 2024 er autumn 1tai hobe.
 // eta korar jnno 1ta pre hook middleware kortechi zeta check korbe year and semester name.
 // exist thakle new semester hobe na. r na thakle new semester create hobe. 
+// shb application e common tai model e likhchi
 academicSemesterSchema.pre('save', async function(next){
   const isSemesterExists = await AcademicSemesterModel.findOne({
     year: this.year,
