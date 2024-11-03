@@ -2,6 +2,7 @@ import express, { NextFunction, Request, Response } from "express";
 import { UserControllers } from "./user.controller";
 import { createStudentValidationZodSchema } from "../student/student.zod.validation";
 import validateRequest from "../../middlewares/validRequest";
+import { AcademicSemesterControllers } from "../academicSemester/academicSemester.controller";
 
 const router = express.Router();
 
