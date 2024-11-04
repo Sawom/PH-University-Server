@@ -212,9 +212,10 @@ studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await ModelofStudent.findOne({ id });
   return existingUser;
 };
+
 // step 4. implementation... little kaj
 // StudentModel update: StudentInstanceModel add kora lagbe
 export const ModelofStudent = model<Student, StudentModel>(
   "Student",
-  studentSchema
+  studentSchema,
 );
