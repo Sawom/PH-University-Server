@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
-import { AcademicFacultyServices } from "./academicSemester.service";
+import { AcademicFacultyServices } from "./academicFaculty.service";
 
 // create faculty
 const createAcademicFaculty = catchAsync(async (req, res) => {
@@ -59,7 +59,7 @@ const updateAcademicFaculty = catchAsync(async (req, res) => {
   });
 });
 
-export const AcademicFacultyController ={
+export const AcademicFacultyControllers ={
     createAcademicFaculty,
     getAllAcademicFaculties,
     getSingleAcademicFaculty,
