@@ -28,6 +28,7 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
 
   // 1st time student zokhn enter hobe tokhn student er id hobe 0001. then +1 kore add hobe.
   // ei student gula decending order e sort hobe. last student ta 1st er dike zabe erpor +1 kore id barte thakbe
+  // currentId ekhane dafeault value
   let currentId = (0).toString();
   // id ctring format e ache. string er sathe number add kora zay na.
   // tai string k number e convert kore roll no +1 kore baray dibo
@@ -38,6 +39,7 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
   const currentSemesterCode = payload.code;
   const currentYear = payload.year;
 
+  // condition check: semester id, code year egula zodi match kore tahole 6digit er por theke count shuru hobe
   if (
     lastStudentId &&
     lastStudentSemesterCode === currentSemesterCode &&

@@ -50,8 +50,9 @@ academicSemesterSchema.pre('save', async function(next){
   next();
 })
 
-
-export const AcademicSemesterModel = model<TAcademicSemester>(
+// "AcademicSemester" menas mongose collection name. mongose convert it plural all small case
+// like AcademicSemesters
+export const academicsemesterModel = model<TAcademicSemester>(
   "AcademicSemester",
   academicSemesterSchema,
 );
