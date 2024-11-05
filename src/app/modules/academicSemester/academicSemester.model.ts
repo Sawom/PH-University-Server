@@ -51,8 +51,8 @@ academicSemesterSchema.pre('save', async function(next){
 })
 
 // "AcademicSemester" menas mongose collection name. mongose convert it plural all small case
-// like AcademicSemesters
-export const academicsemesterModel = model<TAcademicSemester>(
+// like academicsemesters emn hobe
+export const AcademicSemesterModel = model<TAcademicSemester>(
   "AcademicSemester",
   academicSemesterSchema,
 );
