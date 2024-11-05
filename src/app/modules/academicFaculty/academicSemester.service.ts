@@ -28,6 +28,7 @@ const updateAcademicFacultyIntoDB = async( id: string, payload: Partial<TAcademi
 }
 
 export const AcademicFacultyServices ={
+    createAcademicFacultyIntoDB,
     getAllAcademicFacultiesFromDB,
     getSingleAcademicFacultyFromDB,
     updateAcademicFacultyIntoDB
