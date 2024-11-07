@@ -38,6 +38,8 @@ academicDepartmentSchema.pre("save", async function (next) {
 });
 
 // find one and update data
+//*** pre 1ta middleware. caile academicFaculty er moto service eo validation kora zay.
+// referenceing korar somoy dekhte hobe age oi namer faculty/ dpt ache kina
 academicDepartmentSchema.pre("findOneAndUpdate", async function (next) {
   const query = this.getQuery();
   const isDepartmentExist = await AcademicDepartmentModel.findOne(query);
