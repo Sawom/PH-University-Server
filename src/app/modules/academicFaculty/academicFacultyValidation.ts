@@ -2,8 +2,10 @@ import { z } from "zod";
 
 // create academic faculty validation
 const createAcademicFacultyValidationSchema = z.object({
-  name: z.string({
-    invalid_type_error: "Academic faculty must be string",
+  body: z.object({
+    name: z.string({
+      invalid_type_error: "Academic faculty must be string",
+    }),
   }),
 });
 

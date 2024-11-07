@@ -10,7 +10,7 @@ const createAcademicFacultyIntoDB = async(payload: TAcademicFaculty ) =>{
 // getall faculty
 const getAllAcademicFacultiesFromDB = async() =>{
     const result = await AcademicFacultyModel.find();
-  return result;
+    return result;
 }
 
 // single faculty load
@@ -20,7 +20,7 @@ const getSingleAcademicFacultyFromDB = async (id: string) => {
 };
 
 // update faculty load
-const updateAcademicFacultyIntoDB = async( id: string, payload: Partial<TAcademicFaculty> ) =>{
+const updateAcademicFacultyIntoDB = async( id: string, payload: Partial<TAcademicFaculty>, ) =>{
     const result = await AcademicFacultyModel.findOneAndUpdate({_id: id}, payload,{
         new: true,
     })

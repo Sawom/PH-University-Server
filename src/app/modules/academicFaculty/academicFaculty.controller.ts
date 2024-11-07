@@ -6,7 +6,7 @@ import { AcademicFacultyServices } from "./academicFaculty.service";
 // create faculty
 const createAcademicFaculty = catchAsync(async (req, res) => {
   const result = await AcademicFacultyServices.createAcademicFacultyIntoDB(
-    req.body
+    req.body,
   );
 
   sendResponse(res, {
@@ -39,7 +39,7 @@ const getSingleAcademicFaculty = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Academic faculty is retrieved succesfully",
+    message: "Academic faculty is retrieved successfully",
     data: result,
   });
 });
