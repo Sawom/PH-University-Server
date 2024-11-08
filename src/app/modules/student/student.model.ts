@@ -135,7 +135,9 @@ const studentSchema = new Schema<Student, StudentModel>(
       required: true,
     },
     profileImg: { type: String },
-    // admission semester er type hobe object id
+    //** referencing */ admission semester er type hobe object id
+    // age interface er moddhe add korte hobe same nam diye
+    // like, admissionSemester nam e age interface then model e property add korte hoy
     admissionSemester:{
       type: Schema.Types.ObjectId,
       ref:'AcademicSemester',
@@ -143,6 +145,10 @@ const studentSchema = new Schema<Student, StudentModel>(
     isDeleted: {
       type: Boolean,
       default: false,
+    },
+    academicDepartment: {
+      type: Schema.Types.ObjectId, 
+      ref: 'AcademicDepartment',
     },
   },
   {

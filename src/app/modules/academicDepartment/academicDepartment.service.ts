@@ -16,6 +16,9 @@ const getAllAcademicDepartmentsFromDB = async () => {
 };
 
 // get single academic dpt
+// reference field er data anar jnno populate method use hoy.
+//  ekhane academicFaculty er data reference kora ache academicDepartment e.
+// tai academicFaculty er data dekhar jnno populate method use korchi
 const getSingleAcademicDepartmentFromDB = async (id: string) => {
   const result = await AcademicDepartmentModel.findById(id).populate(
     "academicFaculty"

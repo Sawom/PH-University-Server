@@ -15,6 +15,6 @@ const academicFAcultySchema = new Schema<TAcademicFaculty>(
 );
 
 export const AcademicFacultyModel = model<TAcademicFaculty>(
-  "AcademicFaculty",
+  "AcademicFaculty", // modelName, eta diye referencing korte hoy
   academicFAcultySchema
 );

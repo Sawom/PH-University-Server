@@ -13,7 +13,8 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
     // academicDepartment k academicFaculty er sathe referencing korte hobe.
     academicFaculty: {
       type: Schema.Types.ObjectId,
-      ref: "AcademicFaculty",
+      ref: "AcademicFaculty", // modelName, eta diye referencing korte hoy
+      // academicFaculty er model theke paichi
     },
   },
   {
@@ -21,7 +22,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
   }
 );
 
-// save
+// save. create dept validation. ager moto service eo kora zay
 academicDepartmentSchema.pre("save", async function (next) {
   const isDepartmentExist = await AcademicDepartmentModel.findOne({
     name: this.name,
