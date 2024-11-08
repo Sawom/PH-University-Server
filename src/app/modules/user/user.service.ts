@@ -1,5 +1,7 @@
+import httpStatus from "http-status";
+import mongoose from "mongoose";
 import config from "../../config";
-import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
+import AppError from "../../errors/AppError";
 import { AcademicSemesterModel } from "../academicSemester/academicSemester.model";
 import { Student } from "../student/student.interface";
 import { ModelofStudent } from "../student/student.model";
@@ -9,7 +11,7 @@ import { generateStudentId } from "./user.utils";
 
 // studentData er nam dichi payload
 const createStudentIntoDB = async (password: string, payload: Student) => {
-  //    create user obj
+  // create user obj
   const userData: Partial<TUser> = {};
   // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
 
@@ -21,26 +23,49 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
 
   // find academic semester info
   const admissionSemester = await AcademicSemesterModel.findById(
-    payload.admissionSemester,
+    payload.admissionSemester
   );
 
-  //admissionSemester e academicSemester id ta reference hisebe ache.
-  // admissionSemester er id diye user mane student er info find kortechi
-  // set generated id function
-  userData.id = await generateStudentId(admissionSemester);
+  //** */ transaction & rollback
+  // concept: zodi data add korar somoy database er nam thake or match kore tahole data add hobe mane write hobe
+  // otherwise hobe na. ejnno 1ta seassion banate hobe
+  const session = await mongoose.startSession();
 
-  // create a user
-  const newUser = await User.create(userData);
+  try {
+    session.startTransaction();
 
-  // create a student 
-  if (Object.keys(newUser).length) {
+    //admissionSemester e academicSemester id ta reference hisebe ache.
+    // admissionSemester er id diye user mane student er info find kortechi
+    // set generated id function
+    userData.id = await generateStudentId(admissionSemester);
+
+    // create a user (transaction - 1)
+    const newUser = await User.create([userData], { session }); // transaction user er jnno array. age obj chilo
+
+    // create a student
+    if (!newUser.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create user");
+    }
+
     // set id, _id as user
-
     // studentData er nam dichi payload
-    payload.id = newUser.id;
-    payload.user = newUser._id; //***  reference id
-    const newStudent = await ModelofStudent.create(payload);
+    payload.id = newUser[0].id;
+    payload.user = newUser[0]._id; //***  reference id
+
+    // create a student (transaction - 2)
+    const newStudent = await ModelofStudent.create([payload], { session });
+
+    if (!newStudent.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to create student");
+    }
+
+    await session.commitTransaction(); // commit korle data database e permanently save hoy
+    await session.endSession(); // endSession korlam
+
     return newStudent;
+  } catch (err) {
+    await session.abortTransaction();
+    await session.endSession();
   }
 };
 
