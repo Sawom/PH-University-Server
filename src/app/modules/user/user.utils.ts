@@ -17,7 +17,7 @@ const findLastStudentId = async () => {
   // lean() use korle query ta ektu fast hoy. zokhn query korar pore mongose er operation calabo na tokhn lean() use kora zabe.
 
   // 203001 0001; last er 4 digit mane 0001 er sathe 1 zog hobe. tai substring diye 6digit katbo
-  return lastStudent?.id ? lastStudent.id.substring(6) : undefined;
+  return lastStudent?.id ? lastStudent.id : undefined;
 };
 
 // year, semester, 4digit number
@@ -29,7 +29,7 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
   // 1st time student zokhn enter hobe tokhn student er id hobe 0001. then +1 kore add hobe.
   // ei student gula decending order e sort hobe. last student ta 1st er dike zabe erpor +1 kore id barte thakbe
   // currentId ekhane dafeault value
-  let currentId = (0).toString();
+  let currentId = (0).toString(); // 0000 by deafult
   // id ctring format e ache. string er sathe number add kora zay na.
   // tai string k number e convert kore roll no +1 kore baray dibo
   const lastStudentId = await findLastStudentId();
