@@ -1,3 +1,5 @@
+// ##### transaction & rollback implimented #####
+
 import httpStatus from "http-status";
 import mongoose from "mongoose";
 import config from "../../config";
@@ -28,7 +30,8 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
 
   //** */ transaction & rollback
   // concept: zodi data add korar somoy database er nam thake or match kore tahole data add hobe mane write hobe
-  // otherwise hobe na. ejnno 1ta seassion banate hobe
+  // otherwise hobe na. ejnno 2ta seassion banate hobe
+  // 1sathe 2ta collection e operation kora zay
   const session = await mongoose.startSession();
 
   try {
