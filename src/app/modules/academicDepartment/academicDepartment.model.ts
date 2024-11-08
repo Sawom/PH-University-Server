@@ -11,6 +11,7 @@ const academicDepartmentSchema = new Schema<TAcademicDepartment>(
       unique: true,
     },
     // academicDepartment k academicFaculty er sathe referencing korte hobe.
+    // mane academicDepartment ta academicFaculty k refer korteche
     academicFaculty: {
       type: Schema.Types.ObjectId,
       ref: "AcademicFaculty", // modelName, eta diye referencing korte hoy
@@ -28,6 +29,8 @@ academicDepartmentSchema.pre("save", async function (next) {
     name: this.name,
   });
 
+  // throw new Error diye only error msg send kora zay but error status code send kora zay na.
+  // er jnno Error class k extend kore 1ta super class korlam 'AppError' nam e.
   if (isDepartmentExist) {
     throw new AppError(
       httpStatus.NOT_FOUND,

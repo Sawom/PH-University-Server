@@ -1,23 +1,42 @@
 // service e all business logic thakbe
 // service database e query calabe
-import { Student } from "./student.interface";
 import { ModelofStudent } from "./student.model";
 
 //**** */ user e student create kortechi tai eta lagbe na
-
+// ###populate notes### academicDepertment.service.ts file e dea ache
+// zehetu 2ta field k populate kortechi tai chaining kortechi.
+// mane 1ta populate sesh hole r 1ta lej lagay dite hobe
 const getAllstudentFromDB = async () => {
-  const result = await ModelofStudent.find();
+  const result = await ModelofStudent.find()
+    .populate("admissionSemester")
+    // academicDepartment ta academicFaculty k refer kore.
+    // ejnno academicDepartment er path bole dichi
+    .populate({
+      path: "academicDepartment",
+      populate: {
+        path: "academicFaculty",
+      },
+    });
+
   return result;
 };
 
-
-// id diye zodi instance korte cai tahole, 
+// id diye zodi instance korte cai tahole,
 const getSinglestudentFromDB = async (id: string) => {
   // const result = await StudentModel.findOne({id}); // id ta student id
   // aggregate o caile kora zay
-  const userIdNumber = Number(id);
-  const result1 = await ModelofStudent.aggregate([{ $match: { id: id } }]);
-  return result1;
+
+  const result = await ModelofStudent.findById(id)
+    .populate("admissionSemester")
+    // academicDepartment ta academicFaculty k refer kore.
+    // ejnno academicDepartment er path bole dichi
+    .populate({
+      path: "academicDepartment",
+      populate: {
+        path: "academicFaculty",
+      },
+    });
+  return result;
 };
 
 // delete

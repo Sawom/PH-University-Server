@@ -41,9 +41,9 @@ export type Student = {
   guardian: Guardian;
   localGuardian: LocalGuardian;
   profileImg?: string;
-  admissionSemester: Types.ObjectId;
+  admissionSemester: Types.ObjectId; // reference kora
   isDeleted: boolean;
-  academicDepartment: Types.ObjectId;
+  academicDepartment: Types.ObjectId; // reference kora
 };
 
 

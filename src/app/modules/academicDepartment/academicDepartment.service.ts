@@ -8,6 +8,13 @@ const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 };
 
 // get all academic dpt
+// ###*************** notes *************####
+// reference field er data anar jnno populate method use hoy.
+// dhori academicDepartment er moddhe academicFaculty er info amra dekhte cai. 
+// cz, 1ta faculty er under e onk gula dept thakte pare.
+// tai kon dept kon faculty er under e ta jana lagbe
+//  ekhane academicFaculty er data reference kora ache academicDepartment e.
+// tai academicFaculty er data dekhar jnno populate method use korchi
 const getAllAcademicDepartmentsFromDB = async () => {
   const result = await AcademicDepartmentModel.find().populate(
     "academicFaculty"
@@ -16,9 +23,6 @@ const getAllAcademicDepartmentsFromDB = async () => {
 };
 
 // get single academic dpt
-// reference field er data anar jnno populate method use hoy.
-//  ekhane academicFaculty er data reference kora ache academicDepartment e.
-// tai academicFaculty er data dekhar jnno populate method use korchi
 const getSingleAcademicDepartmentFromDB = async (id: string) => {
   const result = await AcademicDepartmentModel.findById(id).populate(
     "academicFaculty"
