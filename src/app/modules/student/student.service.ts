@@ -26,12 +26,13 @@ const getAllstudentFromDB = async () => {
   return result;
 };
 
+// get a single student
 // id diye zodi instance korte cai tahole,
 const getSinglestudentFromDB = async (id: string) => {
   // const result = await StudentModel.findOne({id}); // id ta student id
   // aggregate o caile kora zay
 
-  const result = await ModelofStudent.findById(id)
+  const result = await ModelofStudent.findOne({id})
     .populate("admissionSemester")
     // academicDepartment ta academicFaculty k refer kore.
     // ejnno academicDepartment er path bole dichi
@@ -41,6 +42,14 @@ const getSinglestudentFromDB = async (id: string) => {
         path: "academicFaculty",
       },
     });
+  return result;
+};
+
+// update student 
+const updateStudentFromDB = async (id: string) => {
+
+  const result = await ModelofStudent.findOne({id})
+    
   return result;
 };
 
