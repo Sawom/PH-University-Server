@@ -46,7 +46,6 @@ export type Student = {
   academicDepartment: Types.ObjectId; // reference kora
 };
 
-
 export interface StudentModel extends Model<Student> {
   isUserExists(id: string): Promise<Student | null>;
 }

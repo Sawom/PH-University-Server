@@ -46,23 +46,30 @@ const getSinglestudentFromDB = async (id: string) => {
 
 // update student 
 const updateStudentFromDB = async (id: string, payload: Partial<Student> ) => {
+  // non premitive datagula payload theke ber korbo. cz amra pura docs ta update kortechi na.
+  // kichu field update korbo bakigula same ager ta thakbe
+  // ...remainingStudentData gula premitive data
   const { name, guardian, localGuardian, ...remainingStudentData } = payload;
 
   const modifiedUpdatedData: Record<string, unknown> ={
     ...remainingStudentData,
   }
+
   /* 
   testing data
     guardain: {
       fatherOccupation:"Teacher"
-    }
+    } evabe data send korle mutued hoye zay. mutued mane shb change.
+      // ager unchanged data o thakbe na
 
     guardian.fatherOccupation = Teacher
 
     name.firstName = 'Mezba'
     name.lastName = 'Abedin'
   */
- if (name && Object.keys(name).length) {
+
+  // dynamically primitive, non-primitive handle for update
+  if (name && Object.keys(name).length) {
     for (const [key, value] of Object.entries(name)) {
       modifiedUpdatedData[`name.${key}`] = value;
     }
@@ -82,6 +89,7 @@ const updateStudentFromDB = async (id: string, payload: Partial<Student> ) => {
 
   console.log(modifiedUpdatedData);
 
+  // new: true, zate notun data pai r  runValidators: true, diye validation ta bar on kore dey
   const result = await ModelofStudent.findOneAndUpdate({id}, modifiedUpdatedData, {
     new: true,
     runValidators: true,

@@ -1,8 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { UserControllers } from "./user.controller";
-import { createStudentValidationZodSchema } from "../student/student.zod.validation";
+import { createStudentValidationSchema } from "../student/student.zod.validation";
 import validateRequest from "../../middlewares/validRequest";
-import { AcademicSemesterControllers } from "../academicSemester/academicSemester.controller";
 
 const router = express.Router();
 
@@ -11,7 +10,7 @@ const router = express.Router();
 
 router.post(
   "/create-student",
-  validateRequest(createStudentValidationZodSchema),
+  validateRequest(createStudentValidationSchema),
   UserControllers.createStudent
 );
 
