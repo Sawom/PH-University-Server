@@ -22,7 +22,9 @@ const globalErrorHandler = (
       message: 'something went wrong!'
     }
   ];
+  // end
 
+  // ultimate return ekhan theke zacche
   return res.status(statusCode).json({
     success: false,
     message,
@@ -41,5 +43,6 @@ errorSources:[
   path:'',
   message:''
 ]
+**development hole stack thakbe 
 stack
 */
