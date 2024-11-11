@@ -1,4 +1,6 @@
+
 import { NextFunction, Request, Response } from "express";
+import config from "../config";
 
 const globalErrorHandler = (
   err: any,
@@ -30,6 +32,8 @@ const globalErrorHandler = (
     message,
     // error: err,
     errorSource,
+    err,
+    stack: config.NODE_ENV === 'development' ? err?.stack : null,
   });
 };
 
