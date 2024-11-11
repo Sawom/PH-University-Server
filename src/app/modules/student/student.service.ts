@@ -87,7 +87,7 @@ const updateStudentFromDB = async (id: string, payload: Partial<Student> ) => {
     }
   }
 
-  console.log(modifiedUpdatedData);
+  // console.log(modifiedUpdatedData);
 
   // new: true, zate notun data pai r  runValidators: true, diye validation ta bar on kore dey
   const result = await ModelofStudent.findOneAndUpdate({id}, modifiedUpdatedData, {

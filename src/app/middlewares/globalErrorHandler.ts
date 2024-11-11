@@ -6,14 +6,40 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  // setting default values
   const statusCode = err.statusCode || 500;
   const message = err.message || "something went wrong!";
+
+  // error pattern custom
+  type TErrorSource = {
+    path: string | number;
+    message: string;
+  }[];
+
+  const errorSource: TErrorSource = [
+    {
+      path: '',
+      message: 'something went wrong!'
+    }
+  ];
 
   return res.status(statusCode).json({
     success: false,
     message,
-    error: err,
+    // error: err,
+    errorSource,
   });
 };
 
 export default globalErrorHandler;
+
+//error pattern
+/*
+success
+message
+errorSources:[
+  path:'',
+  message:''
+]
+stack
+*/
