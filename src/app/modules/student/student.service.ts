@@ -3,30 +3,38 @@
 // service database e query calabe
 import httpStatus from "http-status";
 import mongoose from "mongoose";
+import QueryBuilder from "../../builder/QueryBuilder";
 import AppError from "../../errors/AppError";
 import { User } from "../user/user.model";
-import { ModelofStudent } from "./student.model";
+import { studentSearchableFields } from "./student.constant";
 import { Student } from "./student.interface";
+import { ModelofStudent } from "./student.model";
 
 //**** */ user e student create kortechi tai eta lagbe na
 // ###populate notes### academicDepertment.service.ts file e dea ache
 // zehetu 2ta field k populate kortechi tai chaining kortechi.
 // mane 1ta populate sesh hole r 1ta lej lagay dite hobe
-const getAllstudentFromDB = async ( query: Record<string, unknown> ) => {
-
+const getAllstudentFromDB = async (query: Record<string, unknown>) => {
   // searching
-  const studentQuery = new QueryBuilder()
-  const result = await ModelofStudent.find()
-    .populate("admissionSemester").populate({
-      path: "academicDepartment",
-      // academicDepartment ta academicFaculty k refer kore.
-      // ejnno academicDepartment er path bole dichi
-      populate: {
-        path: "academicFaculty",
-      },
-    });
+  const studentQuery = new QueryBuilder(
+    ModelofStudent.find()
+      .populate("user")
+      .populate("admissionSemester")
+      .populate("academicDepartment academicFaculty"),
+    query
+  ).search(studentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
 
-  return result;
+  const meta = await studentQuery.countTotal();
+  const result = await studentQuery.modelQuery;
+
+  return{
+    meta,
+    result,
+  };
 };
 
 // get a single student
@@ -35,28 +43,33 @@ const getSinglestudentFromDB = async (id: string) => {
   // const result = await StudentModel.findOne({id}); // id ta student id
   // aggregate o caile kora zay
 
-  const result = await ModelofStudent.findOne({id})
-    .populate("admissionSemester").populate({
-      path: "academicDepartment",
-      // academicDepartment ta academicFaculty k refer kore.
-      // ejnno academicDepartment er path bole dichi
-      populate: {
-        path: "academicFaculty",
-      },
-    });
+  const result = await ModelofStudent.findOne({ id })
+    .populate("admissionSemester")
+    .populate("academicDepartment academicFaculty");
+
+    // previous refer er jnno
+    // .populate(  
+    //   {
+    //   path: "academicDepartment",
+    //   // academicDepartment ta academicFaculty k refer kore.
+    //   // ejnno academicDepartment er path bole dichi
+    //   populate: {
+    //     path: "academicFaculty",
+    //   },
+    // });
   return result;
 };
 
-// update student 
-const updateStudentFromDB = async (id: string, payload: Partial<Student> ) => {
+// update student
+const updateStudentFromDB = async (id: string, payload: Partial<Student>) => {
   // non premitive datagula payload theke ber korbo. cz amra pura docs ta update kortechi na.
   // kichu field update korbo bakigula same ager ta thakbe
   // ...remainingStudentData gula premitive data
   const { name, guardian, localGuardian, ...remainingStudentData } = payload;
 
-  const modifiedUpdatedData: Record<string, unknown> ={
+  const modifiedUpdatedData: Record<string, unknown> = {
     ...remainingStudentData,
-  }
+  };
 
   /* 
   testing data
@@ -93,11 +106,15 @@ const updateStudentFromDB = async (id: string, payload: Partial<Student> ) => {
   // console.log(modifiedUpdatedData);
 
   // new: true, zate notun data pai r  runValidators: true, diye validation ta bar on kore dey
-  const result = await ModelofStudent.findOneAndUpdate({id}, modifiedUpdatedData, {
-    new: true,
-    runValidators: true,
-  })
-    
+  const result = await ModelofStudent.findOneAndUpdate(
+    { id },
+    modifiedUpdatedData,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
   return result;
 };
 
@@ -143,7 +160,7 @@ const deleteStudentFromDB = async (id: string) => {
   } catch (err) {
     await session.abortTransaction();
     await session.endSession();
-    throw new Error('Failed to delete student');
+    throw new Error("Failed to delete student");
   }
 };
 
