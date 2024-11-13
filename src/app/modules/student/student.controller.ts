@@ -24,7 +24,7 @@ const getSinglestudent = catchAsync(async (req, res) => {
 const getAllstudents: RequestHandler = catchAsync(async (req, res) => {
   // req, res. next er type alada declear na kore 1bare RequestHandler dileo hobe. same kaj
 
-  const result = await StudentService.getAllstudentFromDB();
+  const result = await StudentService.getAllstudentFromDB(req.query);
   // send response er kaj controller e evabeo kora zay.
   sendResponse(res, {
     statusCode: httpStatus.OK,

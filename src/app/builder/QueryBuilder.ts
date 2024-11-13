@@ -1,4 +1,6 @@
 import { FilterQuery, Query } from "mongoose";
+// query builder
+// searching, sorting, filter, paginate
 
 class QueryBuilder<T> {
   public modelQuery: Query<T[], T>;
@@ -9,6 +11,7 @@ class QueryBuilder<T> {
     this.query = query;
   }
 
+  //   search query
   search(searchableFields: string[]) {
     const searchTerm = this?.query?.searchTerm;
     if (searchTerm) {
@@ -25,6 +28,7 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //   for filter
   filter() {
     const queryObj = { ...this.query }; // copy
 
@@ -38,6 +42,7 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //   for sort
   sort() {
     const sort =
       (this?.query?.sort as string)?.split(",")?.join(" ") || "-createdAt";
@@ -46,6 +51,7 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //   for pagination
   paginate() {
     const page = Number(this?.query?.page) || 1;
     const limit = Number(this?.query?.limit) || 10;
@@ -56,6 +62,7 @@ class QueryBuilder<T> {
     return this;
   }
 
+  //   field hisebe ki pai. for pagination
   fields() {
     const fields =
       (this?.query?.fields as string)?.split(",")?.join(" ") || "-__v";
@@ -63,6 +70,7 @@ class QueryBuilder<T> {
     this.modelQuery = this.modelQuery.select(fields);
     return this;
   }
+
   async countTotal() {
     const totalQueries = this.modelQuery.getFilter();
     const total = await this.modelQuery.model.countDocuments(totalQueries);
@@ -77,6 +85,7 @@ class QueryBuilder<T> {
       totalPage,
     };
   }
+
 }
 
 export default QueryBuilder;

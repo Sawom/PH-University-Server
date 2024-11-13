@@ -17,11 +17,16 @@ import { ModelofStudent } from "./student.model";
 const getAllstudentFromDB = async (query: Record<string, unknown>) => {
   // searching
   const studentQuery = new QueryBuilder(
+    // populate implimented
     ModelofStudent.find()
-      .populate("user")
       .populate("admissionSemester")
-      .populate("academicDepartment academicFaculty"),
-    query
+      .populate({
+        path: 'academicDepartment',
+        populate:{
+          path:'academicFaculty',
+        },
+      }),
+    query,
   ).search(studentSearchableFields)
     .filter()
     .sort()
@@ -43,7 +48,7 @@ const getSinglestudentFromDB = async (id: string) => {
   // const result = await StudentModel.findOne({id}); // id ta student id
   // aggregate o caile kora zay
 
-  const result = await ModelofStudent.findOne({ id })
+  const result = await ModelofStudent.findById(id)
     .populate("admissionSemester")
     .populate("academicDepartment academicFaculty");
 
