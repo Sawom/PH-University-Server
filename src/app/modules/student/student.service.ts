@@ -12,7 +12,10 @@ import { Student } from "./student.interface";
 // ###populate notes### academicDepertment.service.ts file e dea ache
 // zehetu 2ta field k populate kortechi tai chaining kortechi.
 // mane 1ta populate sesh hole r 1ta lej lagay dite hobe
-const getAllstudentFromDB = async () => {
+const getAllstudentFromDB = async ( query: Record<string, unknown> ) => {
+
+  // searching
+  const studentQuery = new QueryBuilder()
   const result = await ModelofStudent.find()
     .populate("admissionSemester").populate({
       path: "academicDepartment",
