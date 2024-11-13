@@ -42,7 +42,7 @@ class QueryBuilder<T> {
     return this;
   }
 
-  //   for sort
+  //   for sorting more than one fields
   sort() {
     const sort =
       (this?.query?.sort as string)?.split(",")?.join(" ") || "-createdAt";

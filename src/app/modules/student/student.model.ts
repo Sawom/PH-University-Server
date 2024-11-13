@@ -140,7 +140,7 @@ const studentSchema = new Schema<Student, StudentModel>(
     // like, admissionSemester nam e age interface then model e property add korte hoy
     admissionSemester:{
       type: Schema.Types.ObjectId,
-      ref:'AcademicSemester',
+      ref:'AcademicSemester', // 
     },
     isDeleted: {
       type: Boolean,

@@ -7,6 +7,8 @@ const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
   return result;
 };
 
+// populate method impliment.
+// model theke ref korte hobe. eta student er sathe connected ache
 // get all academic dpt
 // ###*************** notes *************####
 // reference field er data anar jnno populate method use hoy.
