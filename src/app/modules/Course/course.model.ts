@@ -40,6 +40,7 @@ const courseSchema = new Schema<TCourse>(
       trim: true,
       required: true,
     },
+    // ary rakhar karon holo, kichu course 1sathe add korbo abar 1sathe remove korbo
     preRequisiteCourses: [preRequisiteCoursesSchema],
     isDeleted: {
       type: Boolean,

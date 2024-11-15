@@ -33,6 +33,8 @@ const getSingleCourseFromDB = async (id: string) => {
   return result;
 };
 
+// payload e partial info pabo cz zekono kichui update hote pare
+// Transaction rollback implimented
 const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
   const { preRequisiteCourses, ...courseRemainingData } = payload;
 
@@ -41,6 +43,7 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
   try {
     session.startTransaction();
     //step1: basic course info update
+    // Course ta model theke ashche
     const updatedBasicCourseInfo = await Course.findByIdAndUpdate(
       id,
       courseRemainingData,
@@ -62,9 +65,10 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
         .filter((el) => el.course && el.isDeleted)
         .map((el) => el.course);
 
+      
       const deletedPreRequisiteCourses = await Course.findByIdAndUpdate(
         id,
-        {
+        { // pull kora mane remove kora. id diye pre-requisite course pull kore nibo
           $pull: {
             preRequisiteCourses: { course: { $in: deletedPreRequisites } },
           },
@@ -85,8 +89,10 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
         (el) => el.course && !el.isDeleted,
       );
 
+      // Dynamically add multiple preRequisite courses
       const newPreRequisiteCourses = await Course.findByIdAndUpdate(
         id,
+        //  $addToSet add korbe but duplicate hobe na. exact match kore
         {
           $addToSet: { preRequisiteCourses: { $each: newPreRequisites } },
         },
@@ -102,6 +108,7 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
       }
     }
 
+    // age commit kore then session end kore then rsult send korte hobe
     await session.commitTransaction();
     await session.endSession();
 
@@ -138,6 +145,7 @@ const assignFacultiesWithCourseIntoDB = async (
       course: id,
       $addToSet: { faculties: { $each: payload } },
     },
+    // upsert: update & insert. data na thakle create, data thakle add 
     {
       upsert: true,
       new: true,
@@ -152,6 +160,7 @@ const removeFacultiesFromCourseFromDB = async (
 ) => {
   const result = await CourseFaculty.findByIdAndUpdate(
     id,
+    // $in ary er moddhe match kore. $pull diye multiple data remove kortechi
     {
       $pull: { faculties: { $in: payload } },
     },

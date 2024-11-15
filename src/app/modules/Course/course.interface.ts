@@ -14,6 +14,7 @@ export type TCourse = {
   preRequisiteCourses: [TPreRequisiteCourses];
 };
 
+// same course multiple faculty nite paren. tai faculty ary nea
 export type TCoursefaculty = {
   course: Types.ObjectId;
   faculties: [Types.ObjectId];
