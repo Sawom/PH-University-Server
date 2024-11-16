@@ -1,8 +1,9 @@
 import express from 'express';
+import auth from "../../middlewares/auth";
+import { USER_ROLE } from "../user/user.constant";
+import { SemesterRegistrationController } from "./semesterRegistration.controller";
 import validateRequest from '../../middlewares/validRequest';
 import { SemesterRegistrationValidations } from './semesterRegistration.validation';
-import { SemesterRegistrationController } from './semesterRegistration.controller';
-import { USER_ROLE } from '../user/user.constant';
 
 const router = express.Router();
 
