@@ -5,7 +5,10 @@ import { AcademicSemesterModel } from "../academicSemester/academicSemester.mode
 import { RegistrationStatus } from "./semesterRegistration.constant";
 import { TSemesterRegistration } from "./semesterRegistration.interface";
 import { SemesterRegistration } from "./semesterRegistration.model";
+import { OfferedCourse } from "../OfferedCourse/OfferedCourse.model";
+import mongoose from "mongoose";
 
+// create registration
 const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration
 ) => {
@@ -63,6 +66,7 @@ const createSemesterRegistrationIntoDB = async (
   return result;
 };
 
+// get all registration
 const getAllSemesterRegistrationsFromDB = async (
   query: Record<string, unknown>
 ) => {
@@ -84,6 +88,7 @@ const getAllSemesterRegistrationsFromDB = async (
   };
 };
 
+// get single semester registration
 const getSingleSemesterRegistrationsFromDB = async (id: string) => {
   const result = await SemesterRegistration.findById(id).populate(
     "academicSemester"
