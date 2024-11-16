@@ -1,10 +1,19 @@
 import { Response } from 'express';
 
+type TMeta = {
+  limit: number;
+  page: number;
+  total: number;
+  totalPage: number;
+};
+
+
 type TResponse<T> = {
   statusCode: number;
   success: boolean;
   message?: string;
-  data: T; // data ary, objt, string ze kono kichu hote pare. tai generic type use korchi
+  meta?: TMeta;
+  data: T; // data ary, object, string ze kono kichu hote pare. tai generic type use korchi
 };
 
 const sendResponse = <T>(res: Response, 
