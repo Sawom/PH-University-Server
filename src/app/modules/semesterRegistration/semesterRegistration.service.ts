@@ -9,6 +9,8 @@ import { OfferedCourse } from "../OfferedCourse/OfferedCourse.model";
 import mongoose from "mongoose";
 
 // create registration
+// UPCOMING --> ONGOING --> ENDED, ei flow te zabe. ulta hobe na
+// UPCOMING or ONGOING semester hole amra notun semester registration hote dibo na. 
 const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration
 ) => {
@@ -22,15 +24,16 @@ const createSemesterRegistrationIntoDB = async (
   const academicSemester = payload?.academicSemester;
 
   //check if there any registered semester that is already 'UPCOMING'|'ONGOING'
-
   const isThereAnyUpcomingOrOngoingSEmester =
     await SemesterRegistration.findOne({
+      // $or 2tar moddhe zekono 1ta
       $or: [
         { status: RegistrationStatus.UPCOMING },
         { status: RegistrationStatus.ONGOING },
       ],
     });
 
+  // UPCOMING or ONGOING semester hole amra notun semester registration hote dibo na. error throw korbo
   if (isThereAnyUpcomingOrOngoingSEmester) {
     throw new AppError(
       httpStatus.BAD_REQUEST,
@@ -62,6 +65,8 @@ const createSemesterRegistrationIntoDB = async (
     );
   }
 
+  // age 1ta academic semester create thaka lagbe. then oi semester e registration hobe
+  // create registration in semester. create er kaj gula model diye shb korte hoy
   const result = await SemesterRegistration.create(payload);
   return result;
 };
@@ -71,10 +76,11 @@ const getAllSemesterRegistrationsFromDB = async (
   query: Record<string, unknown>
 ) => {
   const semesterRegistrationQuery = new QueryBuilder(
+    // populate or reference fields er opr search korbo na. ete performance issue hoy.
+    // but filter kora zabe
     SemesterRegistration.find().populate("academicSemester"),
     query
-  )
-    .filter()
+  ).filter()
     .sort()
     .paginate()
     .fields();
@@ -104,7 +110,7 @@ const updateSemesterRegistrationIntoDB = async (
   /**
    * Step1: Check if the semester is exist
    * Step2: Check if the requested registered semester is exists
-   * Step3: If the requested semester registration is ended, we will not update anything
+   * Step3: If the requested semester registration is ended, we will not update anything ***
    * Step4: If the requested semester registration is 'UPCOMING', we will let update everything.
    * Step5: If the requested semester registration is 'ONGOING', we will not update anything  except status to 'ENDED'
    * Step6: If the requested semester registration is 'ENDED' , we will not update anything

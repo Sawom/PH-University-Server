@@ -6,7 +6,7 @@ import validateRequest from '../../middlewares/validRequest';
 import { SemesterRegistrationValidations } from './semesterRegistration.validation';
 
 const router = express.Router();
-
+// auth er kaj gula always route e korte hoy. route secure korte hoy.
 router.post(
   '/create-semester-registration',
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
