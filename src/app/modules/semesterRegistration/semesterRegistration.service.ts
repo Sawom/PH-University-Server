@@ -15,6 +15,7 @@ const createSemesterRegistrationIntoDB = async (
   payload: TSemesterRegistration
 ) => {
   /**
+   * ongoing/up-coming thakle new semester add korte dibo naa
    * Step1: Check if there any registered semester that is already 'UPCOMING'|'ONGOING'
    * Step2: Check if the semester is exist
    * Step3: Check if the semester is already registered!
@@ -108,6 +109,7 @@ const updateSemesterRegistrationIntoDB = async (
   payload: Partial<TSemesterRegistration>
 ) => {
   /**
+   * semester ended hole update korte dibo na
    * Step1: Check if the semester is exist
    * Step2: Check if the requested registered semester is exists
    * Step3: If the requested semester registration is ended, we will not update anything ***
