@@ -146,9 +146,14 @@ const studentSchema = new Schema<Student, StudentModel>(
       type: Boolean,
       default: false,
     },
+    // reference
     academicDepartment: {
       type: Schema.Types.ObjectId, 
       ref: 'AcademicDepartment',
+    },
+    academicFaculty: {
+      type: Schema.Types.ObjectId,
+      ref: 'AcademicFaculty',
     },
   },
   {

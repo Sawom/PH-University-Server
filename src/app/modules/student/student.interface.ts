@@ -44,6 +44,7 @@ export type Student = {
   admissionSemester: Types.ObjectId; // reference kora
   isDeleted: boolean;
   academicDepartment: Types.ObjectId; // reference kora
+  academicFaculty: Types.ObjectId; // reference
 };
 
 export interface StudentModel extends Model<Student> {
