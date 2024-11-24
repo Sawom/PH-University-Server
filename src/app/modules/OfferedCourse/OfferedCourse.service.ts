@@ -8,6 +8,7 @@ import { SemesterRegistration } from "./../semesterRegistration/semesterRegistra
 import { TOfferedCourse } from "./OfferedCourse.interface";
 import { OfferedCourse } from "./OfferedCourse.model";
 import { hasTimeConflict } from "./OfferedCourse.utils";
+import QueryBuilder from "../../builder/QueryBuilder";
 
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   // reference field gula destruct kore nicchi
@@ -134,7 +135,26 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
   return result;
 };
 
+const getAllOfferedCoursesFromDB = async (query: Record<string, unknown>) => {
+  const offeredCourseQuery = new QueryBuilder(OfferedCourse.find(), query)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await offeredCourseQuery.modelQuery;
+  const meta = await offeredCourseQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
+};
+
 export const OfferedCourseServices = {
-    createOfferedCourseIntoDB,
-    
-}
+  createOfferedCourseIntoDB,
+  getAllOfferedCoursesFromDB,
+
+
+  
+};
