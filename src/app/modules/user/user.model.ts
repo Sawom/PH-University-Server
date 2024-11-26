@@ -5,7 +5,7 @@ import { UserStatus } from "./user.constant";
 import { TUser, UserModel } from "./user.interface";
 // password bcrypt er kaj ei model ei
 
-const userSchema = new Schema<TUser>(
+const userSchema = new Schema<TUser, UserModel>(
   {
     id: {
       type: String,

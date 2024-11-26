@@ -1,6 +1,7 @@
 import { TAcademicSemester } from "../academicSemester/academicSemester.interface";
 import { User } from "./user.model";
 
+// student id
 const findLastStudentId = async () => {
   const lastStudent = await User.findOne(
     {
@@ -21,7 +22,7 @@ const findLastStudentId = async () => {
 };
 
 // year, semester, 4digit number
-// id generated function
+// student id generated function
 export const generateStudentId = async (payload: TAcademicSemester) => {
   // 1st time id 0000 theke start hoye +1 kore barbe
   // 4digit er number niye bakigula 0 boshay dibo
@@ -52,3 +53,25 @@ export const generateStudentId = async (payload: TAcademicSemester) => {
   incrementId = `${payload.year}${payload.code}${incrementId}`;
   return incrementId;
 };
+
+// faculty id
+export const findLastFacultyId = async() =>{
+  const lastFaculty = await User.findOne(
+    {
+      role: 'faculty',
+    },
+    {
+      id: 1,
+      _id: 0,
+    }
+  ).sort({
+    createAt: -1,
+  }).lean();
+
+  return lastFaculty?.id ? lastFaculty.id.substring(2) : undefined;
+}
+
+// faculty id generate
+export const generateFacultyId = async() =>{
+
+}
