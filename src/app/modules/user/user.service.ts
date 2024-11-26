@@ -1,5 +1,5 @@
 // ##### transaction & rollback implimented #####
-
+// ##### Student, faculty, admin => ri 3 type e user. tai shob type er user k user.service e create kore id generate kore nicchi
 import httpStatus from "http-status";
 import mongoose from "mongoose";
 import config from "../../config";
@@ -12,7 +12,11 @@ import { User } from "./user.model";
 import { generateStudentId } from "./user.utils";
 
 // studentData er nam dichi payload
-const createStudentIntoDB = async (password: string, payload: Student) => {
+const createStudentIntoDB = async (
+  file: any,
+  password: string,
+  payload: Student
+) => {
   // create user obj
   const userData: Partial<TUser> = {};
   // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
@@ -27,6 +31,10 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
   const admissionSemester = await AcademicSemesterModel.findById(
     payload.admissionSemester
   );
+
+  if (!admissionSemester) {
+    throw new AppError(400, "Admission semester not found");
+  }
 
   //** */ transaction & rollback
   // concept: zodi data add korar somoy database er nam thake or match kore tahole data add hobe mane write hobe
@@ -66,12 +74,14 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
     await session.endSession(); // endSession korlam
 
     return newStudent;
-  } catch (err:any) {
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
   }
 };
+
+// create faculty
 
 export const UserServices = {
   createStudentIntoDB,
