@@ -22,7 +22,6 @@ import {
 
 // studentData er nam dichi payload
 const createStudentIntoDB = async (
-  file: any,
   password: string,
   payload: Student
 ) => {
