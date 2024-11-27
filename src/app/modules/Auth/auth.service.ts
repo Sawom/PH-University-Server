@@ -168,7 +168,7 @@ const refreshToken = async (token: string) => {
   };
 };
 
-export const AuthService = {
+export const AuthServices = {
   loginUser,
   changePassword,
   refreshToken,
