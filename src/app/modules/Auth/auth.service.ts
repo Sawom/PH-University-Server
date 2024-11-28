@@ -8,6 +8,7 @@ import { TLoginUser } from "./auth.interface";
 import { createToken } from "./auth.utils";
 
 // user login
+// validate: is exist? is blocked? is deleted?
 const loginUser = async (payload: TLoginUser) => {
   // checking if the user is exist
   const user = await User.isUserExistsByCustomId(payload.id);

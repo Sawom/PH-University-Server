@@ -77,3 +77,8 @@ user.service, e giye
 // create a student
 user.model.ts e,
 password bycrypt er kaj
+
+*****jwt token*****
+node
+require('crypto').randomBytes(32).toString('hex')
+result => 9bb31e4b77c24bf0a3ba15b3cb430b6e31028835a1ab7281cf10cabadfe25c8f
