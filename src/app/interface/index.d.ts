@@ -7,3 +7,6 @@ declare global {
     }
   }
 }
+
+// eta 1ta type definition file.
+// express er namespace e user k dilam. validate purpose used

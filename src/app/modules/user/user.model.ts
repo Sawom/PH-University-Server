@@ -20,7 +20,7 @@ const userSchema = new Schema<TUser, UserModel>(
     password: {
       type: String,
       required: true,
-      select: 0,
+      select: 0, // password postman e show korbe na. password access kora zabe na
     },
     needsPasswordChange: {
       type: Boolean,
@@ -70,7 +70,7 @@ userSchema.post("save", function (doc, next) {
 }); // pass empty done
 
 userSchema.statics.isUserExistsByCustomId = async function (id: string) {
-  return await User.findOne({ id }).select("+password");
+  return await User.findOne({ id }).select('+password'); // old, new password compare korar jnno + others info zodi lage tai +password used
 };
 
 userSchema.statics.isPasswordMatched = async function (

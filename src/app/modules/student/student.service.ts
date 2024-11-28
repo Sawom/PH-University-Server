@@ -19,15 +19,17 @@ const getAllstudentFromDB = async (query: Record<string, unknown>) => {
   const studentQuery = new QueryBuilder(
     // populate implimented. nested hole path bolte hoy
     ModelofStudent.find()
+      .populate("user")
       .populate("admissionSemester")
       .populate({
-        path: 'academicDepartment',
-        populate:{
-          path:'academicFaculty',
+        path: "academicDepartment",
+        populate: {
+          path: "academicFaculty",
         },
       }),
-    query,
-  ).search(studentSearchableFields)
+    query
+  )
+    .search(studentSearchableFields)
     .filter()
     .sort()
     .paginate()
@@ -36,7 +38,7 @@ const getAllstudentFromDB = async (query: Record<string, unknown>) => {
   const meta = await studentQuery.countTotal();
   const result = await studentQuery.modelQuery;
 
-  return{
+  return {
     meta,
     result,
   };
@@ -52,16 +54,16 @@ const getSinglestudentFromDB = async (id: string) => {
     .populate("admissionSemester")
     .populate("academicDepartment academicFaculty");
 
-    // previous refer er jnno
-    // .populate(  
-    //   {
-    //   path: "academicDepartment",
-    //   // academicDepartment ta academicFaculty k refer kore.
-    //   // ejnno academicDepartment er path bole dichi
-    //   populate: {
-    //     path: "academicFaculty",
-    //   },
-    // });
+  // previous refer er jnno
+  // .populate(
+  //   {
+  //   path: "academicDepartment",
+  //   // academicDepartment ta academicFaculty k refer kore.
+  //   // ejnno academicDepartment er path bole dichi
+  //   populate: {
+  //     path: "academicFaculty",
+  //   },
+  // });
   return result;
 };
 
