@@ -1,15 +1,17 @@
 import cors from "cors";
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 
-import router from "./app/routes";
+import cookieParser from "cookie-parser";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
+import router from "./app/routes";
 const app: Application = express();
 const port = 3000;
 
 // parsers
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
+app.use(cors({origin: ['http://localhost:5173']})); // frontend e kaj korar somoy issue avoid korar jnno
 
 // application routes. /api/v1/students ei route e gele student.routes e cole ashbe.
 // zetay */create-student* ache
