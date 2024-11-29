@@ -45,10 +45,14 @@ const loginUser = async (payload: TLoginUser) => {
 
   const accessToken = createToken(
     JwtPayload,
-    config.jwt_refresh_secret as string,
-    config.jwt_refresh_expires_in as string
+    config.jwt_access_secret as string,
+    config.jwt_access_expires_in as string
   );
 
+  // refresh token er meyad beshi. access token er meyad 
+  // sesh hole refresh token er theke notun token pay & user 
+  // k provide kore. but refresh token er neyad sesh hole abar 
+  // user k login korte hobe.
   const refreshToken = createToken(
     JwtPayload,
     config.jwt_refresh_secret as string,
