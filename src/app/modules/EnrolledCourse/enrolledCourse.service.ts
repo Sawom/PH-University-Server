@@ -1,7 +1,9 @@
 import httpStatus from "http-status";
 import mongoose from "mongoose";
+import QueryBuilder from "../../builder/QueryBuilder";
 import AppError from "../../errors/AppError";
 import { Course } from "../Course/course.model";
+import { Faculty } from "../Faculty/faculty.model";
 import { OfferedCourse } from "../OfferedCourse/OfferedCourse.model";
 import { ModelofStudent } from "../student/student.model";
 import { SemesterRegistration } from "./../semesterRegistration/semesterRegistration.model";
@@ -127,13 +129,49 @@ const createEnrolledCourseIntoDB = async (
       );
     }
 
-    const maxCapacity
+    const maxCapacity = isOfferedCourseExists.maxCapacity;
+    await OfferedCourse.findByIdAndUpdate(offeredCourse, {
+      maxCapacity: maxCapacity - 1,
+    });
 
-
-
+    await session.commitTransaction();
+    await session.endSession();
+    return result;
   } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
   }
+};
+
+const getAllEnrolledCoursesFromDB = async (
+  facultyId: string,
+  query: Record<string, unknown>
+) => {
+  const faculty = await Faculty.findOne({ id: facultyId });
+
+  if (!faculty) {
+    throw new AppError(httpStatus.NOT_FOUND, "Faculty not found !");
+  }
+
+  const enrolledCourseQuery = new QueryBuilder(
+    EnrolledCourse.find({
+      faculty: faculty._id,
+    }).populate(
+      "semesterRegistration academicSemester academicFaculty academicDepartment offeredCourse course student faculty"
+    ),
+    query
+  )
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await enrolledCourseQuery.modelQuery;
+  const meta = await enrolledCourseQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
 };
