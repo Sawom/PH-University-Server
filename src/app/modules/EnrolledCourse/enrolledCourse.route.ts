@@ -2,6 +2,8 @@ import auth from "../../middlewares/auth";
 import  express  from 'express';
 import { USER_ROLE } from "../user/user.constant";
 import validateRequest from "../../middlewares/validRequest";
+import { EnrolledCourseValidations } from "./enrolledCourse.validaton";
+import { EnrolledCourseControllers } from "./enrolledCourse.controller";
 
 
 const router = express.Router();
