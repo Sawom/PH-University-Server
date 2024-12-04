@@ -49,9 +49,9 @@ const loginUser = async (payload: TLoginUser) => {
     config.jwt_access_expires_in as string
   );
 
-  // refresh token er meyad beshi. access token er meyad 
-  // sesh hole refresh token er theke notun token pay & user 
-  // k provide kore. but refresh token er neyad sesh hole abar 
+  // refresh token er meyad beshi. access token er meyad
+  // sesh hole refresh token er theke notun token pay & user
+  // k provide kore. but refresh token er neyad sesh hole abar
   // user k login korte hobe.
   const refreshToken = createToken(
     JwtPayload,
@@ -171,6 +171,51 @@ const refreshToken = async (token: string) => {
   return {
     accessToken,
   };
+};
+
+// 1ta link create korbo zei link e gele password reset kora zabe
+const forgetPassword = async (userId: string) => {
+  // checking if the user is exist
+  const user = await User.isUserExistsByCustomId(userId);
+
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "This user is not found !");
+  }
+
+  // checking if the user is already deleted
+  const isDeleted = user?.isDeleted;
+
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, "This user is deleted !");
+  }
+
+  // checking if the user is blocked
+  const userStatus = user?.status;
+
+  if (userStatus === "blocked") {
+    throw new AppError(httpStatus.FORBIDDEN, "This user is blocked ! !");
+  }
+
+  const JwtPayload = {
+    userId: user.id,
+    role: user.role,
+  };
+
+  const resetToken = createToken(
+    JwtPayload,
+    config.jwt_access_secret as string,
+    '10m',
+  )
+
+  // create link with token
+  const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken}` ;
+
+  sendEmail(user.email, resetUILink);
+  console.log(resetUILink);
+
+
+
+
 };
 
 export const AuthServices = {
