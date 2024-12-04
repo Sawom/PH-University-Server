@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import config from "../../config";
 import AppError from "../../errors/AppError";
+import { sendEmail } from "../../utils/sendEmail";
 import { User } from "../user/user.model";
 import { TLoginUser } from "./auth.interface";
 import { createToken } from "./auth.utils";
@@ -204,22 +205,19 @@ const forgetPassword = async (userId: string) => {
   const resetToken = createToken(
     JwtPayload,
     config.jwt_access_secret as string,
-    '10m',
-  )
+    "10m"
+  );
 
   // create link with token
-  const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken}` ;
+  const resetUILink = `${config.reset_pass_ui_link}?id=${user.id}&token=${resetToken}`;
 
   sendEmail(user.email, resetUILink);
   console.log(resetUILink);
-
-
-
-
 };
 
 export const AuthServices = {
   loginUser,
   changePassword,
   refreshToken,
+  forgetPassword,
 };
