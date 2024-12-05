@@ -21,10 +21,7 @@ import {
 } from "./user.utils";
 
 // studentData er nam dichi payload
-const createStudentIntoDB = async (
-  password: string,
-  payload: Student
-) => {
+const createStudentIntoDB = async (password: string, payload: Student) => {
   // create user obj
   const userData: Partial<TUser> = {};
   // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
@@ -194,8 +191,33 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   }
 };
 
+const getMe = async (userId: string, role: string) => {
+  let result = null;
+
+  if (role === "student") {
+    result = ModelofStudent.findOne({ id: userId }).populate("user");
+  }
+
+  if (role === "admin") {
+    result = await Admin.findOne({ id: userId }).populate("user");
+  }
+
+  if (role === "faculty") {
+    result = await Faculty.findOne({ id: userId }).populate("user");
+  }
+
+  return result;
+};
+
+const changeStatus = async (id: string, payload: { status: string }) => {
+  const result = await User.findByIdAndUpdate(id, payload, { new: true });
+  return result;
+};
+
 export const UserServices = {
   createStudentIntoDB,
   createFacultyIntoDB,
   createAdminIntoDB,
+  getMe,
+  changeStatus,
 };

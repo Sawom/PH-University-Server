@@ -123,7 +123,7 @@ const changePassword = async (
 
 // refresh token
 const refreshToken = async (token: string) => {
-  // checking if the given token is valid
+  // checking if the given token is valid. token verify
   const decoded = jwt.verify(
     token,
     config.jwt_refresh_secret as string
@@ -202,6 +202,7 @@ const forgetPassword = async (userId: string) => {
     role: user.role,
   };
 
+  // token sign kora hoiche jwt_access_secret diye. so eta diyei verify korte hobe
   const resetToken = createToken(
     JwtPayload,
     config.jwt_access_secret as string,
