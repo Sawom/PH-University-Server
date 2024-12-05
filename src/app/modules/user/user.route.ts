@@ -36,4 +36,17 @@ router.post(
   UserControllers.createAdmin
 );
 
+// /me route e faculty, admin, student ; 3types er user der info pawa zabe. 
+// zar zar info se se pabe. keu karo ta access pabe na
+router.get(
+  '/me',
+  auth(
+    USER_ROLE.superAdmin,
+    USER_ROLE.admin,
+    USER_ROLE.faculty,
+    USER_ROLE.student,
+  ),
+  UserControllers.getMe,
+);
+
 export const UserRoutes = router;
