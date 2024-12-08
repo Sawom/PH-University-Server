@@ -19,9 +19,10 @@ import {
   generateFacultyId,
   generateStudentId,
 } from "./user.utils";
+import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 
 // studentData er nam dichi payload
-const createStudentIntoDB = async (password: string, payload: Student) => {
+const createStudentIntoDB = async (file: any, password: string, payload: Student) => {
   // create user obj
   const userData: Partial<TUser> = {};
   // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
@@ -32,6 +33,9 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
   // set student role
   userData.role = "student";
 
+  // set student email
+  userData.email = payload.email;
+
   // find academic semester info
   const admissionSemester = await AcademicSemesterModel.findById(
     payload.admissionSemester
@@ -40,6 +44,16 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
   if (!admissionSemester) {
     throw new AppError(400, "Admission semester not found");
   }
+
+  // find department
+  const academicDepartment = await AcademicDepartmentModel.findById(
+    payload.academicDepartment,
+  )
+
+  if (!academicDepartment) {
+    throw new AppError(400, 'Aademic department not found');
+  }
+  payload.academicFaculty = academicDepartment.academicFaculty;
 
   //** */ transaction & rollback
   // concept: zodi data add korar somoy database er nam thake or match kore tahole data add hobe mane write hobe
@@ -54,6 +68,16 @@ const createStudentIntoDB = async (password: string, payload: Student) => {
     // admissionSemester er id diye user mane student er info find kortechi
     // set generated id function
     userData.id = await generateStudentId(admissionSemester);
+
+    // img file er kaj
+    if(file){
+      const imageName = `${userData.id}${payload?.name?.firstName}`;
+      const path = file?.path;
+
+      //send image to cloudinary
+      const { secure_url } = await sendImageToCloudinary(imageName, path);
+      payload.profileImg = secure_url as string;
+    }
 
     // create a user (transaction - 1)
     const newUser = await User.create([userData], { session }); // transaction user er jnno array. age obj chilo
