@@ -134,7 +134,7 @@ const studentSchema = new Schema<Student, StudentModel>(
       type: localGuradianSchema,
       required: true,
     },
-    profileImg: { type: String },
+    profileImg: { type: String, default: ''  },
     //** referencing */ admission semester er type hobe object id
     // age interface er moddhe add korte hobe same nam diye
     // like, admissionSemester nam e age interface then model e property add korte hoy

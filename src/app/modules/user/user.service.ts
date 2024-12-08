@@ -137,7 +137,7 @@ const createFacultyIntoDB = async (
   if (!academicDepartment) {
     throw new AppError(400, "Academic department not found");
   }
-   payload.academicFaculty = academicDepartment?.academicFaculty;
+  payload.academicFaculty = academicDepartment?.academicFaculty;
 
   const session = await mongoose.startSession();
 
@@ -185,7 +185,11 @@ const createFacultyIntoDB = async (
   }
 };
 
-const createAdminIntoDB = async (password: string, payload: TAdmin) => {
+const createAdminIntoDB = async (
+  file: any,
+  password: string,
+  payload: TAdmin
+) => {
   // create user object
   const userData: Partial<TUser> = {};
 
@@ -195,6 +199,8 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
   // set user role
   userData.role = "admin";
 
+  //set admin email
+  userData.email = payload.email;
   const session = await mongoose.startSession();
 
   try {
@@ -202,7 +208,15 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     // set generate id
     userData.id = await generateAdminId();
 
-    // create a user as admin (transaction-1)
+    if (file) {
+      const imageName = `${userData.id}${payload?.name?.firstName}`;
+      const path = file?.path;
+      //send image to cloudinary
+      const { secure_url } = await sendImageToCloudinary(imageName, path);
+      payload.profileImg = secure_url as string;
+    }
+
+    // create a user (transaction-1)
     const newUser = await User.create([userData], { session });
 
     // create a admin
@@ -214,7 +228,7 @@ const createAdminIntoDB = async (password: string, payload: TAdmin) => {
     payload.id = newUser[0].id;
     payload.user = newUser[0]._id; //reference _id
 
-    // create a admin (transaction-2)
+    // now create a admin (transaction-2)
     const newAdmin = await Admin.create([payload], { session });
 
     if (!newAdmin.length) {
