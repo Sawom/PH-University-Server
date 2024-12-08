@@ -4,6 +4,7 @@ import httpStatus from "http-status";
 import mongoose from "mongoose";
 import config from "../../config";
 import AppError from "../../errors/AppError";
+import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 import { AcademicDepartmentModel } from "../academicDepartment/academicDepartment.model";
 import { AcademicSemesterModel } from "../academicSemester/academicSemester.model";
 import { TAdmin } from "../Admin/admin.interface";
@@ -19,10 +20,13 @@ import {
   generateFacultyId,
   generateStudentId,
 } from "./user.utils";
-import { sendImageToCloudinary } from "../../utils/sendImageToCloudinary";
 
 // studentData er nam dichi payload
-const createStudentIntoDB = async (file: any, password: string, payload: Student) => {
+const createStudentIntoDB = async (
+  file: any,
+  password: string,
+  payload: Student
+) => {
   // create user obj
   const userData: Partial<TUser> = {};
   // id, password optional rakhar jnno and TUser k use korar jnno *partial use korche
@@ -47,11 +51,11 @@ const createStudentIntoDB = async (file: any, password: string, payload: Student
 
   // find department
   const academicDepartment = await AcademicDepartmentModel.findById(
-    payload.academicDepartment,
-  )
+    payload.academicDepartment
+  );
 
   if (!academicDepartment) {
-    throw new AppError(400, 'Aademic department not found');
+    throw new AppError(400, "Aademic department not found");
   }
   payload.academicFaculty = academicDepartment.academicFaculty;
 
@@ -70,7 +74,7 @@ const createStudentIntoDB = async (file: any, password: string, payload: Student
     userData.id = await generateStudentId(admissionSemester);
 
     // img file er kaj
-    if(file){
+    if (file) {
       const imageName = `${userData.id}${payload?.name?.firstName}`;
       const path = file?.path;
 
@@ -111,7 +115,11 @@ const createStudentIntoDB = async (file: any, password: string, payload: Student
 };
 
 // create faculty
-const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
+const createFacultyIntoDB = async (
+  file: any,
+  password: string,
+  payload: TFaculty
+) => {
   // create a user
   const userData: Partial<TUser> = {};
 
@@ -129,6 +137,7 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
   if (!academicDepartment) {
     throw new AppError(400, "Academic department not found");
   }
+   payload.academicFaculty = academicDepartment?.academicFaculty;
 
   const session = await mongoose.startSession();
 
@@ -137,6 +146,14 @@ const createFacultyIntoDB = async (password: string, payload: TFaculty) => {
 
     // set generated id
     userData.id = await generateFacultyId();
+
+    if (file) {
+      const imageName = `${userData.id}${payload?.name?.firstName}`;
+      const path = file?.path;
+      //send image to cloudinary
+      const { secure_url } = await sendImageToCloudinary(imageName, path);
+      payload.profileImg = secure_url as string;
+    }
 
     // create a user (transaction - 1)
     const newUser = await User.create([userData], { session }); // array
