@@ -59,6 +59,8 @@ const createEnrolledCourseIntoDB = async (
 
   const maxCredit = semesterRegistration?.maxCredit;
 
+  // 1ta collection er reffer data zodi onno collection e reffer kore thake and eder kichu calculation lage
+  // then agrigation used hobe 
   const enrolledCourses = await EnrolledCourse.aggregate([
     {
       $match: {
@@ -67,6 +69,7 @@ const createEnrolledCourseIntoDB = async (
       },
     },
     {
+      // kon collection theke lookup korbo
       $lookup: {
         from: "courses",
         localField: "course",
