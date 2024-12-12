@@ -9,7 +9,7 @@ const createCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course is created succesfully',
+    message: "Course is created succesfully",
     data: result,
   });
 });
@@ -20,7 +20,7 @@ const getAllCourses = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course are retrieved successfully',
+    message: "Course are retrieved successfully",
     data: result,
   });
 });
@@ -32,7 +32,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course is retrieved succesfully',
+    message: "Course is retrieved succesfully",
     data: result,
   });
 });
@@ -44,7 +44,7 @@ const updateCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'course is updated succesfully',
+    message: "course is updated succesfully",
     data: result,
   });
 });
@@ -56,7 +56,7 @@ const deleteCourse = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Course is deleted succesfully',
+    message: "Course is deleted succesfully",
     data: result,
   });
 });
@@ -67,13 +67,13 @@ const assignFacultiesWithCourse = catchAsync(async (req, res) => {
 
   const result = await CourseServices.assignFacultiesWithCourseIntoDB(
     courseId,
-    faculties,
+    faculties
   );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculties assigned  succesfully',
+    message: "Faculties assigned  succesfully",
     data: result,
   });
 });
@@ -84,13 +84,26 @@ const removeFacultiesFromCourse = catchAsync(async (req, res) => {
 
   const result = await CourseServices.removeFacultiesFromCourseFromDB(
     courseId,
-    faculties,
+    faculties
   );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculties removed  succesfully',
+    message: "Faculties removed  succesfully",
+    data: result,
+  });
+});
+
+const getFacultiesWithCourse = catchAsync(async (req, res) => {
+  const { courseId } = req.params;
+
+  const result = await CourseServices.getFacultiesWithCourseFromDB(courseId);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Faculties retrieved successfully",
     data: result,
   });
 });
@@ -103,4 +116,5 @@ export const CourseControllers = {
   deleteCourse,
   assignFacultiesWithCourse,
   removeFacultiesFromCourse,
+  getFacultiesWithCourse,
 };
