@@ -194,6 +194,8 @@ const getMyOfferedCoursesFromDB = async (
       },
     },
     // offered course er pre-requsite course dekhar jnno lookup kora
+    // 1ta course 1 semester e 1bar e enroll kora zabe.
+    // $lookup diye offered course ber korlam
     {
       $lookup: {
         from: "courses",
@@ -202,8 +204,8 @@ const getMyOfferedCoursesFromDB = async (
         as: "course",
       },
     },
-    // $lookup use korar jonno 1ta ary create hoy. 
-    // $zeno course er id diye access kora zay tai ei ary k vangte hoy. 
+    // $lookup use korar jonno 1ta ary create hoy.
+    // $zeno course er id diye access kora zay tai ei ary k vangte hoy.
     // vangar jnno $unwind use korte hoy
     {
       $unwind: "$course",
@@ -216,6 +218,7 @@ const getMyOfferedCoursesFromDB = async (
             currentOngoingRegistrationSemester._id,
           currentStudent: student._id,
         },
+        // specific semester er enrolled course ante hobe. oijnno pipeline
         pipeline: [
           {
             $match: {
@@ -228,7 +231,7 @@ const getMyOfferedCoursesFromDB = async (
                     ],
                   },
                   {
-                    $eq: ["$student", "$$currentStudent"],
+                    $eq: ["$student", "$$currentStudent"], // variable er moto use kore $$
                   },
                   {
                     $eq: ["$isEnrolled", true],
@@ -251,6 +254,7 @@ const getMyOfferedCoursesFromDB = async (
           {
             $match: {
               $expr: {
+                // current student er completed course
                 $and: [
                   {
                     $eq: ["$student", "$$currentStudent"],
@@ -269,6 +273,7 @@ const getMyOfferedCoursesFromDB = async (
     {
       $addFields: {
         completedCourseIds: {
+          // mongoose er map
           $map: {
             input: "$completedCourses",
             as: "completed",
@@ -330,7 +335,7 @@ const getMyOfferedCoursesFromDB = async (
   const total = (await OfferedCourse.aggregate(aggregationQuery)).length;
 
   const totalPage = Math.ceil(result.length / limit);
-
+  // pagination er kaj gula meta_data nam e poricito
   return {
     meta: {
       page,
