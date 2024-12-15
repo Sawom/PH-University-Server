@@ -5,11 +5,11 @@ import { AcademicDepartmentModel } from "../academicDepartment/academicDepartmen
 import { AcademicFacultyModel } from "../academicFaculty/academicFaculty.model";
 import { Course } from "../Course/course.model";
 import { Faculty } from "../Faculty/faculty.model";
+import { ModelofStudent } from "../student/student.model";
 import { SemesterRegistration } from "./../semesterRegistration/semesterRegistration.model";
 import { TOfferedCourse } from "./OfferedCourse.interface";
 import { OfferedCourse } from "./OfferedCourse.model";
 import { hasTimeConflict } from "./OfferedCourse.utils";
-import { ModelofStudent } from "../student/student.model";
 
 // create
 const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
@@ -157,7 +157,7 @@ const getAllOfferedCoursesFromDB = async (query: Record<string, unknown>) => {
 // get my offered course
 const getMyOfferedCoursesFromDB = async (
   userId: string,
-  query: Record<string, unknown>,
+  query: Record<string, unknown>
 ) => {
   //pagination setup
 
@@ -168,20 +168,20 @@ const getMyOfferedCoursesFromDB = async (
   const student = await ModelofStudent.findOne({ id: userId });
   // find the student
   if (!student) {
-    throw new AppError(httpStatus.NOT_FOUND, 'User is noty found');
+    throw new AppError(httpStatus.NOT_FOUND, "User is noty found");
   }
 
   //find current ongoing semester
   const currentOngoingRegistrationSemester = await SemesterRegistration.findOne(
     {
-      status: 'ONGOING',
-    },
+      status: "ONGOING",
+    }
   );
 
   if (!currentOngoingRegistrationSemester) {
     throw new AppError(
       httpStatus.NOT_FOUND,
-      'There is no ongoing semester registration!',
+      "There is no ongoing semester registration!"
     );
   }
 
@@ -193,20 +193,24 @@ const getMyOfferedCoursesFromDB = async (
         academicDepartment: student.academicDepartment,
       },
     },
+    // offered course er pre-requsite course dekhar jnno lookup kora
     {
       $lookup: {
-        from: 'courses',
-        localField: 'course',
-        foreignField: '_id',
-        as: 'course',
+        from: "courses",
+        localField: "course",
+        foreignField: "_id",
+        as: "course",
       },
     },
+    // $lookup use korar jonno 1ta ary create hoy. 
+    // $zeno course er id diye access kora zay tai ei ary k vangte hoy. 
+    // vangar jnno $unwind use korte hoy
     {
-      $unwind: '$course',
+      $unwind: "$course",
     },
     {
       $lookup: {
-        from: 'enrolledcourses',
+        from: "enrolledcourses",
         let: {
           currentOngoingRegistrationSemester:
             currentOngoingRegistrationSemester._id,
@@ -219,27 +223,27 @@ const getMyOfferedCoursesFromDB = async (
                 $and: [
                   {
                     $eq: [
-                      '$semesterRegistration',
-                      '$$currentOngoingRegistrationSemester',
+                      "$semesterRegistration",
+                      "$$currentOngoingRegistrationSemester",
                     ],
                   },
                   {
-                    $eq: ['$student', '$$currentStudent'],
+                    $eq: ["$student", "$$currentStudent"],
                   },
                   {
-                    $eq: ['$isEnrolled', true],
+                    $eq: ["$isEnrolled", true],
                   },
                 ],
               },
             },
           },
         ],
-        as: 'enrolledCourses',
+        as: "enrolledCourses",
       },
     },
     {
       $lookup: {
-        from: 'enrolledcourses',
+        from: "enrolledcourses",
         let: {
           currentStudent: student._id,
         },
@@ -249,26 +253,26 @@ const getMyOfferedCoursesFromDB = async (
               $expr: {
                 $and: [
                   {
-                    $eq: ['$student', '$$currentStudent'],
+                    $eq: ["$student", "$$currentStudent"],
                   },
                   {
-                    $eq: ['$isCompleted', true],
+                    $eq: ["$isCompleted", true],
                   },
                 ],
               },
             },
           },
         ],
-        as: 'completedCourses',
+        as: "completedCourses",
       },
     },
     {
       $addFields: {
         completedCourseIds: {
           $map: {
-            input: '$completedCourses',
-            as: 'completed',
-            in: '$$completed.course',
+            input: "$completedCourses",
+            as: "completed",
+            in: "$$completed.course",
           },
         },
       },
@@ -277,11 +281,11 @@ const getMyOfferedCoursesFromDB = async (
       $addFields: {
         isPreRequisitesFulFilled: {
           $or: [
-            { $eq: ['$course.preRequisiteCourses', []] },
+            { $eq: ["$course.preRequisiteCourses", []] },
             {
               $setIsSubset: [
-                '$course.preRequisiteCourses.course',
-                '$completedCourseIds',
+                "$course.preRequisiteCourses.course",
+                "$completedCourseIds",
               ],
             },
           ],
@@ -289,12 +293,12 @@ const getMyOfferedCoursesFromDB = async (
 
         isAlreadyEnrolled: {
           $in: [
-            '$course._id',
+            "$course._id",
             {
               $map: {
-                input: '$enrolledCourses',
-                as: 'enroll',
-                in: '$$enroll.course',
+                input: "$enrolledCourses",
+                as: "enroll",
+                in: "$$enroll.course",
               },
             },
           ],
@@ -343,7 +347,7 @@ const getSingleOfferedCourseFromDB = async (id: string) => {
   const offeredCourse = await OfferedCourse.findById(id);
 
   if (!offeredCourse) {
-    throw new AppError(404, 'Offered Course not found');
+    throw new AppError(404, "Offered Course not found");
   }
 
   return offeredCourse;
@@ -351,7 +355,7 @@ const getSingleOfferedCourseFromDB = async (id: string) => {
 
 const updateOfferedCourseIntoDB = async (
   id: string,
-  payload: Pick<TOfferedCourse, 'faculty' | 'days' | 'startTime' | 'endTime'>,
+  payload: Pick<TOfferedCourse, "faculty" | "days" | "startTime" | "endTime">
 ) => {
   /**
    * Step 1: check if the offered course exists
@@ -365,26 +369,27 @@ const updateOfferedCourseIntoDB = async (
   const isOfferedCourseExists = await OfferedCourse.findById(id);
 
   if (!isOfferedCourseExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Offered course not found !');
+    throw new AppError(httpStatus.NOT_FOUND, "Offered course not found !");
   }
 
   const isFacultyExists = await Faculty.findById(faculty);
 
   if (!isFacultyExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found !');
+    throw new AppError(httpStatus.NOT_FOUND, "Faculty not found !");
   }
 
   const semesterRegistration = isOfferedCourseExists.semesterRegistration;
   // get the schedules of the faculties
 
   // Checking the status of the semester registration
-  const semesterRegistrationStatus =
-    await SemesterRegistration.findById(semesterRegistration);
+  const semesterRegistrationStatus = await SemesterRegistration.findById(
+    semesterRegistration
+  );
 
-  if (semesterRegistrationStatus?.status !== 'UPCOMING') {
+  if (semesterRegistrationStatus?.status !== "UPCOMING") {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `You can not update this offered course as it is ${semesterRegistrationStatus?.status}`,
+      `You can not update this offered course as it is ${semesterRegistrationStatus?.status}`
     );
   }
 
@@ -393,7 +398,7 @@ const updateOfferedCourseIntoDB = async (
     semesterRegistration,
     faculty,
     days: { $in: days },
-  }).select('days startTime endTime');
+  }).select("days startTime endTime");
 
   const newSchedule = {
     days,
@@ -404,7 +409,7 @@ const updateOfferedCourseIntoDB = async (
   if (hasTimeConflict(assignedSchedules, newSchedule)) {
     throw new AppError(
       httpStatus.CONFLICT,
-      `This faculty is not available at that time ! Choose other time or day`,
+      `This faculty is not available at that time ! Choose other time or day`
     );
   }
 
@@ -423,18 +428,19 @@ const deleteOfferedCourseFromDB = async (id: string) => {
   const isOfferedCourseExists = await OfferedCourse.findById(id);
 
   if (!isOfferedCourseExists) {
-    throw new AppError(httpStatus.NOT_FOUND, 'Offered Course not found');
+    throw new AppError(httpStatus.NOT_FOUND, "Offered Course not found");
   }
 
   const semesterRegistation = isOfferedCourseExists.semesterRegistration;
 
-  const semesterRegistrationStatus =
-    await SemesterRegistration.findById(semesterRegistation).select('status');
+  const semesterRegistrationStatus = await SemesterRegistration.findById(
+    semesterRegistation
+  ).select("status");
 
-  if (semesterRegistrationStatus?.status !== 'UPCOMING') {
+  if (semesterRegistrationStatus?.status !== "UPCOMING") {
     throw new AppError(
       httpStatus.BAD_REQUEST,
-      `Offered course can not update ! because the semester ${semesterRegistrationStatus}`,
+      `Offered course can not update ! because the semester ${semesterRegistrationStatus}`
     );
   }
 
@@ -442,7 +448,6 @@ const deleteOfferedCourseFromDB = async (id: string) => {
 
   return result;
 };
-
 
 export const OfferedCourseServices = {
   createOfferedCourseIntoDB,

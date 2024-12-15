@@ -1,54 +1,53 @@
-import express from 'express';
-import auth from '../../middlewares/auth';
-import { USER_ROLE } from '../user/user.constant';
-import { OfferedCourseControllers } from './OfferedCourse.controller';
-import validateRequest from '../../middlewares/validRequest';
-import { OfferedCourseValidations } from './OfferedCourse.validation';
+import express from "express";
+import auth from "../../middlewares/auth";
+import validateRequest from "../../middlewares/validRequest";
+import { USER_ROLE } from "../user/user.constant";
+import { OfferedCourseControllers } from "./OfferedCourse.controller";
+import { OfferedCourseValidations } from "./OfferedCourse.validation";
 
 const router = express.Router();
 
-
 router.get(
-  '/',
+  "/",
   auth(USER_ROLE.superAdmin, USER_ROLE.admin, USER_ROLE.faculty),
-  OfferedCourseControllers.getAllOfferedCourses,
+  OfferedCourseControllers.getAllOfferedCourses
 );
 
 router.get(
-  '/my-offered-courses',
+  "/my-offered-courses",
   auth(USER_ROLE.student),
-  OfferedCourseControllers.getMyOfferedCourses,
+  OfferedCourseControllers.getMyOfferedCourses
 );
 
 router.get(
-  '/:id',
+  "/:id",
   auth(
     USER_ROLE.superAdmin,
     USER_ROLE.admin,
     USER_ROLE.faculty,
-    USER_ROLE.student,
+    USER_ROLE.student
   ),
-  OfferedCourseControllers.getSingleOfferedCourses,
+  OfferedCourseControllers.getSingleOfferedCourses
 );
 
 router.post(
-  '/create-offered-course',
+  "/create-offered-course",
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(OfferedCourseValidations.createOfferedCourseValidationSchema),
-  OfferedCourseControllers.createOfferedCourse,
+  OfferedCourseControllers.createOfferedCourse
 );
 
 router.patch(
-  '/:id',
+  "/:id",
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(OfferedCourseValidations.updateOfferedCourseValidationSchema),
-  OfferedCourseControllers.updateOfferedCourse,
+  OfferedCourseControllers.updateOfferedCourse
 );
 
 router.delete(
-  '/:id',
+  "/:id",
   auth(USER_ROLE.superAdmin, USER_ROLE.admin),
-  OfferedCourseControllers.deleteOfferedCourseFromDB,
+  OfferedCourseControllers.deleteOfferedCourseFromDB
 );
 
 export const offeredCourseRoutes = router;
