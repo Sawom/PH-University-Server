@@ -11,7 +11,7 @@ const port = 3000;
 // parsers
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin: ['http://localhost:5173']})); // frontend e kaj korar somoy issue avoid korar jnno
+app.use(cors({ origin: "http://localhost:5173", credentials: true })); // frontend e kaj korar somoy issue avoid korar jnno
 
 // application routes. /api/v1/students ei route e gele student.routes e cole ashbe.
 // zetay */create-student* ache
