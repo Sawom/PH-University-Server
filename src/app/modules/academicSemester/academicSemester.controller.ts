@@ -9,9 +9,11 @@ import { AcademicSemesterServices } from "./academicSemester.service";
 
 // create semester
 const createAcademicSemester: RequestHandler = catchAsync(async (req, res) => {
-//   const { password, student: studentData } = req.body;
+  //   const { password, student: studentData } = req.body;
   // req.body dilam cz valiadtion ta hocche route er req.body te
-  const result = await AcademicSemesterServices.createAcademicSemesterIntoDB(req.body);
+  const result = await AcademicSemesterServices.createAcademicSemesterIntoDB(
+    req.body
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -21,14 +23,14 @@ const createAcademicSemester: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-// get all semester 
+// get all semester
 const getAllAcademicSemesters = catchAsync(async (req, res) => {
   const result = await AcademicSemesterServices.getAllAcademicSemestersFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semesters are retrieved successfully',
+    message: "Academic semesters are retrieved successfully",
     data: result,
   });
 });
@@ -36,13 +38,14 @@ const getAllAcademicSemesters = catchAsync(async (req, res) => {
 // get single semester
 const getSingleAcademicSemester = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
-  const result =
-    await AcademicSemesterServices.getSingleAcademicSemesterFromDB(semesterId);
+  const result = await AcademicSemesterServices.getSingleAcademicSemesterFromDB(
+    semesterId
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semester is retrieved succesfully',
+    message: "Academic semester is retrieved succesfully",
     data: result,
   });
 });
@@ -52,13 +55,13 @@ const updateAcademicSemester = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
   const result = await AcademicSemesterServices.updateAcademicSemesterIntoDB(
     semesterId,
-    req.body,
+    req.body
   );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semester is retrieved succesfully',
+    message: "Academic semester is retrieved succesfully",
     data: result,
   });
 });
@@ -67,5 +70,5 @@ export const AcademicSemesterControllers = {
   createAcademicSemester,
   getAllAcademicSemesters,
   getSingleAcademicSemester,
-  updateAcademicSemester
+  updateAcademicSemester,
 };

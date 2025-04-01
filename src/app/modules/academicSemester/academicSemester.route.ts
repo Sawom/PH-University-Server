@@ -39,15 +39,10 @@ router.patch(
   AcademicSemesterControllers.updateAcademicSemester
 );
 
-// get all data academ
+// get all data academic
 router.get(
   "/",
-  auth(
-    USER_ROLE.superAdmin,
-    USER_ROLE.admin,
-    USER_ROLE.faculty,
-    USER_ROLE.student
-  ),
+  auth("admin"),
   AcademicSemesterControllers.getAllAcademicSemesters
 );
 

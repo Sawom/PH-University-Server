@@ -1,11 +1,4 @@
 {
-	"info": {
-		"_postman_id": "02a735da-92f0-460b-b38c-a0452fc273cc",
-		"name": "PH-university",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "26682150",
-		"_collection_link": "https://interstellar-astronaut-10838.postman.co/workspace/First-Project~9ffaedc0-c14d-4f77-b93c-953710912fa4/collection/26682150-02a735da-92f0-460b-b38c-a0452fc273cc?action=share&source=collection_link&creator=26682150"
-	},
 	"item": [
 		{
 			"name": "Auth",
