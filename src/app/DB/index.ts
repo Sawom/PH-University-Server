@@ -18,6 +18,7 @@ const seedSuperAdmin = async () => {
 
   if (!isSuperAdminExits) {
     await User.create(superUser);
+    // super admin na thakle automatic create hobe. zodi database delete kore start kori
   }
 };
 

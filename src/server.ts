@@ -1,7 +1,8 @@
+// ekhane database connection hocche
+import { Server } from "http";
 import mongoose from "mongoose";
 import app from "./app";
 import config from "./app/config";
-import { Server } from "http";
 import seedSuperAdmin from "./app/DB";
 
 let server: Server;
@@ -9,6 +10,7 @@ let server: Server;
 async function main() {
   try {
     await mongoose.connect(config.database_url as string);
+    // super admin ekhane create hocche
     seedSuperAdmin();
 
     server = app.listen(config.port, () => {
@@ -23,7 +25,7 @@ main();
 
 // *** globalHandleError shudhu express er error handle kore. ***
 // asynchronus code e error hole unhandledRejection error hoy.eta handle korte hoy
-process.on('unhandledRejection', (err) => {
+process.on("unhandledRejection", (err) => {
   console.log(`😈 unahandledRejection is detected , shutting down ...`, err);
   if (server) {
     server.close(() => {
@@ -34,7 +36,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 // synchronus code e error hole uncaughtException error hoy. eta handle korte hoy
-process.on('uncaughtException', () => {
+process.on("uncaughtException", () => {
   console.log(`😈 uncaughtException is detected , shutting down ...`);
   process.exit(1);
 });

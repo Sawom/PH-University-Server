@@ -17,7 +17,7 @@ import { ModelofStudent } from "./student.model";
 const getAllstudentFromDB = async (query: Record<string, unknown>) => {
   // searching
   const studentQuery = new QueryBuilder(
-    // populate implimented. nested hole path bolte hoy
+    // populate implemented. nested hole path bolte hoy
     ModelofStudent.find()
       .populate("user")
       .populate("admissionSemester")

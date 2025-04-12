@@ -134,13 +134,13 @@ const studentSchema = new Schema<Student, StudentModel>(
       type: localGuradianSchema,
       required: true,
     },
-    profileImg: { type: String, default: ''  },
+    profileImg: { type: String, default: "" },
     //** referencing */ admission semester er type hobe object id
     // age interface er moddhe add korte hobe same nam diye
     // like, admissionSemester nam e age interface then model e property add korte hoy
-    admissionSemester:{
+    admissionSemester: {
       type: Schema.Types.ObjectId,
-      ref:'AcademicSemester', // 
+      ref: "AcademicSemester", //
     },
     isDeleted: {
       type: Boolean,
@@ -148,12 +148,12 @@ const studentSchema = new Schema<Student, StudentModel>(
     },
     // reference
     academicDepartment: {
-      type: Schema.Types.ObjectId, 
-      ref: 'AcademicDepartment',
+      type: Schema.Types.ObjectId,
+      ref: "AcademicDepartment",
     },
     academicFaculty: {
       type: Schema.Types.ObjectId,
-      ref: 'AcademicFaculty',
+      ref: "AcademicFaculty",
     },
   },
   {
@@ -184,7 +184,6 @@ studentSchema.virtual("fullName").get(function () {
 // *** pre hook middleware hook use kore password k database e save korar age hashing korlam
 // password hashing
 // pre save middleware/hook: will work on create() save()
-
 
 //***  query middleware*******
 // ei function diye delete howa data gula dekhabo na.
@@ -228,5 +227,5 @@ studentSchema.statics.isUserExists = async function (id: string) {
 // StudentModel update: StudentInstanceModel add kora lagbe
 export const ModelofStudent = model<Student, StudentModel>(
   "Student",
-  studentSchema,
+  studentSchema
 );
