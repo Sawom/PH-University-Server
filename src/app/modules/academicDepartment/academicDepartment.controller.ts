@@ -3,8 +3,9 @@ import catchAsync from "../../utils/catchAsync";
 import sendResponse from "../../utils/sendResponse";
 import { AcademicDepartmentServices } from "./academicDepartment.service";
 
-const createAcademicDepartmemt = catchAsync(async (req, res) => {
-  const result = await AcademicDepartmentServices.createAcademicDepartmentIntoDB(req.body);
+const createAcademicDepartment = catchAsync(async (req, res) => {
+  const result =
+    await AcademicDepartmentServices.createAcademicDepartmentIntoDB(req.body);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -15,7 +16,8 @@ const createAcademicDepartmemt = catchAsync(async (req, res) => {
 });
 
 const getAllAcademicDepartments = catchAsync(async (req, res) => {
-  const result = await AcademicDepartmentServices.getAllAcademicDepartmentsFromDB();
+  const result =
+    await AcademicDepartmentServices.getAllAcademicDepartmentsFromDB();
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -27,21 +29,23 @@ const getAllAcademicDepartments = catchAsync(async (req, res) => {
 
 const getSingleAcademicDepartment = catchAsync(async (req, res) => {
   const { departmentId } = req.params;
-  const result = await AcademicDepartmentServices.getSingleAcademicDepartmentFromDB(
+  const result =
+    await AcademicDepartmentServices.getSingleAcademicDepartmentFromDB(
       departmentId
     );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Academic department is retrieved succesfully",
+    message: "Academic department is retrieved successfully",
     data: result,
   });
 });
 
-const updateAcademicDeartment = catchAsync(async (req, res) => {
+const updateAcademicDepartment = catchAsync(async (req, res) => {
   const { departmentId } = req.params;
-  const result = await AcademicDepartmentServices.updateAcademicDepartmentIntoDB(
+  const result =
+    await AcademicDepartmentServices.updateAcademicDepartmentIntoDB(
       departmentId,
       req.body
     );
@@ -55,8 +59,8 @@ const updateAcademicDeartment = catchAsync(async (req, res) => {
 });
 
 export const AcademicDepartmentControllers = {
-  createAcademicDepartmemt,
+  createAcademicDepartment,
   getAllAcademicDepartments,
   getSingleAcademicDepartment,
-  updateAcademicDeartment,
+  updateAcademicDepartment,
 };

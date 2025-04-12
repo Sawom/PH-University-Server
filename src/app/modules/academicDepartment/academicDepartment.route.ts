@@ -1,31 +1,50 @@
-import express from 'express';
-import validateRequest from '../../middlewares/validRequest';
-import { AcademicDepartmentControllers } from './academicDepartment.controller';
-import { AcademicDepartmentValidation } from './academicDepartment.validation';
+import express from "express";
+import auth from "../../middlewares/auth";
+import validateRequest from "../../middlewares/validRequest";
+import { USER_ROLE } from "../user/user.constant";
+import { AcademicDepartmentControllers } from "./academicDepartment.controller";
+import { AcademicDepartmentValidation } from "./academicDepartment.validation";
 
 const router = express.Router();
 
 router.post(
-  '/create-academic-department',
+  "/create-academic-department",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(
-    AcademicDepartmentValidation.createAcademicDepartmentValidationSchema,
+    AcademicDepartmentValidation.createAcademicDepartmentValidationSchema
   ),
-  AcademicDepartmentControllers.createAcademicDepartmemt,
+  AcademicDepartmentControllers.createAcademicDepartment
 );
 
 router.get(
-  '/:departmentId',
-  AcademicDepartmentControllers.getSingleAcademicDepartment,
+  "/:departmentId",
+  auth(
+    USER_ROLE.superAdmin,
+    USER_ROLE.admin,
+    USER_ROLE.faculty,
+    USER_ROLE.student
+  ),
+  AcademicDepartmentControllers.getSingleAcademicDepartment
 );
 
 router.patch(
-  '/:departmentId',
+  "/:departmentId",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(
-    AcademicDepartmentValidation.updateAcademicDepartmentValidationSchema,
+    AcademicDepartmentValidation.updateAcademicDepartmentValidationSchema
   ),
-  AcademicDepartmentControllers.updateAcademicDeartment,
+  AcademicDepartmentControllers.updateAcademicDepartment
 );
 
-router.get('/', AcademicDepartmentControllers.getAllAcademicDepartments);
+router.get(
+  "/",
+  auth(
+    USER_ROLE.superAdmin,
+    USER_ROLE.admin,
+    USER_ROLE.faculty,
+    USER_ROLE.student
+  ),
+  AcademicDepartmentControllers.getAllAcademicDepartments
+);
 
 export const AcademicDepartmentRoutes = router;
