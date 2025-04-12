@@ -1,5 +1,7 @@
 import express from "express";
+import auth from "../../middlewares/auth";
 import validateRequest from "../../middlewares/validRequest";
+import { USER_ROLE } from "../user/user.constant";
 import { StudentController } from "./student.controller";
 import { updateStudentValidationSchema } from "./student.zod.validation";
 
@@ -9,16 +11,30 @@ const router = express.Router();
 // will call controller
 // router.post('/create-student', StudentController.createStudent )
 // get all student
-router.get("/", StudentController.getAllstudents);
+router.get(
+  "/",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  StudentController.getAllstudents
+);
 // get single student
-router.get("/:studentId", StudentController.getSinglestudent);
-// delete student
-router.delete("/:studentId", StudentController.deleteStudent);
+router.get(
+  "/:id",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin, USER_ROLE.faculty),
+  StudentController.getSinglestudent
+);
+
 // update student
 router.patch(
-  "/:studentId",
+  "/:id",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
   validateRequest(updateStudentValidationSchema),
-  StudentController.updateStudent,
+  StudentController.updateStudent
+);
+// delete student
+router.delete(
+  "/:id",
+  auth(USER_ROLE.superAdmin, USER_ROLE.admin),
+  StudentController.deleteStudent
 );
 
 export const StudentRoutes = router;
