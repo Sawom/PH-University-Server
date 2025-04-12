@@ -1,4 +1,8 @@
 {
+  "info": {
+    "name": "Fixed Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
   "item": [
     {
       "name": "Auth",
@@ -19,8 +23,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/login",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -41,8 +50,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/login",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -63,8 +77,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/login",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -85,8 +104,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/login",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "login"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -113,8 +137,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/change-password",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "change-password"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "change-password"
+              ]
             }
           },
           "response": []
@@ -126,8 +155,13 @@
             "header": [],
             "url": {
               "raw": "{{ph-local-url}}/auth/refresh-token",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "refresh-token"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
             }
           },
           "response": [
@@ -138,8 +172,13 @@
                 "header": [],
                 "url": {
                   "raw": "{{ph-local-url}}/auth/refresh-token",
-                  "host": ["{{ph-local-url}}"],
-                  "path": ["auth", "refresh-token"]
+                  "host": [
+                    "{{ph-local-url}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "refresh-token"
+                  ]
                 }
               },
               "status": "Bad Request",
@@ -204,8 +243,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/forget-password",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "forget-password"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "forget-password"
+              ]
             }
           },
           "response": []
@@ -232,8 +276,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/auth/reset-password",
-              "host": ["{{ph-local-url}}"],
-              "path": ["auth", "reset-password"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "auth",
+                "reset-password"
+              ]
             }
           },
           "response": []
@@ -273,9 +322,17 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/users/create-student/",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "users", "create-student", ""]
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "create-student",
+                ""
+              ]
             }
           },
           "response": []
@@ -308,8 +365,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/users/create-faculty",
-              "host": ["{{ph-local-url}}"],
-              "path": ["users", "create-faculty"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "users",
+                "create-faculty"
+              ]
             }
           },
           "response": []
@@ -343,8 +405,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/users/create-admin",
-              "host": ["{{ph-local-url}}"],
-              "path": ["users", "create-admin"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "users",
+                "create-admin"
+              ]
             }
           },
           "response": []
@@ -362,8 +429,13 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/users/me",
-              "host": ["{{ph-local-url}}"],
-              "path": ["users", "me"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "users",
+                "me"
+              ]
             }
           },
           "response": []
@@ -390,8 +462,14 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/users/change-status/658056522d7914bff94e67cf",
-              "host": ["{{ph-local-url}}"],
-              "path": ["users", "change-status", "658056522d7914bff94e67cf"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "users",
+                "change-status",
+                "658056522d7914bff94e67cf"
+              ]
             }
           },
           "response": []
@@ -422,9 +500,15 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/students",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "students"]
+              "path": [
+                "api",
+                "v1",
+                "students"
+              ]
             }
           },
           "response": []
@@ -443,9 +527,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/students/65b016db47c500c09d0bed2f",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "students", "65b016db47c500c09d0bed2f"]
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "65b016db47c500c09d0bed2f"
+              ]
             }
           },
           "response": []
@@ -458,9 +549,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/students/2030010001",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "students", "2030010001"]
+              "path": [
+                "api",
+                "v1",
+                "students",
+                "2030010001"
+              ]
             }
           },
           "response": []
@@ -481,8 +579,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/students/2030010001",
-              "host": ["{{ph-local-url}}"],
-              "path": ["students", "2030010001"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "students",
+                "2030010001"
+              ]
             }
           },
           "response": []
@@ -494,7 +597,9 @@
             "header": [],
             "url": {
               "raw": "{{ph-local-url}}/students/academic-transcript/65aeaa5df2dba4614fa68c19",
-              "host": ["{{ph-local-url}}"],
+              "host": [
+                "{{ph-local-url}}"
+              ],
               "path": [
                 "students",
                 "academic-transcript",
@@ -529,8 +634,12 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/faculties",
-              "host": ["{{ph-local-url}}"],
-              "path": ["faculties"],
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "faculties"
+              ],
               "query": [
                 {
                   "key": "searchTerm",
@@ -555,9 +664,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/faculties/656dce0f133c4a8a53eb",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "faculties", "656dce0f133c4a8a53eb"]
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "656dce0f133c4a8a53eb"
+              ]
             }
           },
           "response": []
@@ -570,9 +686,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/faculties/656dce0f133c4a8a53eb5efb",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "faculties", "656dce0f133c4a8a53eb5efb"]
+              "path": [
+                "api",
+                "v1",
+                "faculties",
+                "656dce0f133c4a8a53eb5efb"
+              ]
             }
           },
           "response": []
@@ -593,8 +716,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/faculties/656dce0f133c4a8a53eb5efb",
-              "host": ["{{ph-local-url}}"],
-              "path": ["faculties", "656dce0f133c4a8a53eb5efb"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "faculties",
+                "656dce0f133c4a8a53eb5efb"
+              ]
             }
           },
           "response": []
@@ -625,9 +753,15 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/admins",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "admins"],
+              "path": [
+                "api",
+                "v1",
+                "admins"
+              ],
               "query": [
                 {
                   "key": "searchTerm",
@@ -658,9 +792,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/admins/656ddf1c0e2e5dab57dbdad7",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "admins", "656ddf1c0e2e5dab57dbdad7"]
+              "path": [
+                "api",
+                "v1",
+                "admins",
+                "656ddf1c0e2e5dab57dbdad7"
+              ]
             }
           },
           "response": []
@@ -679,9 +820,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/admins/657dcc7a2c59c16597756e4e",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "admins", "657dcc7a2c59c16597756e4e"]
+              "path": [
+                "api",
+                "v1",
+                "admins",
+                "657dcc7a2c59c16597756e4e"
+              ]
             }
           },
           "response": []
@@ -708,8 +856,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/admins/656dce0f133c4a8a53eb5efb",
-              "host": ["{{ph-local-url}}"],
-              "path": ["admins", "656dce0f133c4a8a53eb5efb"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "admins",
+                "656dce0f133c4a8a53eb5efb"
+              ]
             }
           },
           "response": []
@@ -742,7 +895,9 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/academic-semesters/create-academic-semester",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
               "path": [
                 "api",
@@ -780,9 +935,15 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/academic-semesters",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "academic-semesters"]
+              "path": [
+                "api",
+                "v1",
+                "academic-semesters"
+              ]
             }
           },
           "response": []
@@ -801,7 +962,9 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/academic-semesters/65646ac154dfafc1a9ce2806jjjjj",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
               "path": [
                 "api",
@@ -840,8 +1003,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/academic-departments/create-academic-department",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-departments", "create-academic-department"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-departments",
+                "create-academic-department"
+              ]
             }
           },
           "response": []
@@ -859,8 +1027,12 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/academic-departments",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-departments"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-departments"
+              ]
             }
           },
           "response": []
@@ -878,8 +1050,13 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/academic-departments/gggg",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-departments", "gggg"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-departments",
+                "gggg"
+              ]
             }
           },
           "response": []
@@ -906,8 +1083,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/academic-departments/65666886eb4042a08aba675a",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-departments", "65666886eb4042a08aba675a"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-departments",
+                "65666886eb4042a08aba675a"
+              ]
             }
           },
           "response": []
@@ -939,8 +1121,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/academic-faculties/create-academic-faculty",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-faculties", "create-academic-faculty"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-faculties",
+                "create-academic-faculty"
+              ]
             }
           },
           "response": []
@@ -958,8 +1145,12 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/academic-faculties",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-faculties"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-faculties"
+              ]
             }
           },
           "response": []
@@ -977,8 +1168,13 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/academic-faculties/hhh",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-faculties", "hhh"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-faculties",
+                "hhh"
+              ]
             }
           },
           "response": []
@@ -999,8 +1195,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/academic-faculties/65665cbb41a6353fdc06fced",
-              "host": ["{{ph-local-url}}"],
-              "path": ["academic-faculties", "65665cbb41a6353fdc06fced"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "academic-faculties",
+                "65665cbb41a6353fdc06fced"
+              ]
             }
           },
           "response": []
@@ -1032,8 +1233,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/courses/create-course",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses", "create-course"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses",
+                "create-course"
+              ]
             }
           },
           "response": []
@@ -1051,8 +1257,12 @@
             ],
             "url": {
               "raw": "{{ph-local-url}}/courses",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses"],
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses"
+              ],
               "query": [
                 {
                   "key": "limit",
@@ -1076,8 +1286,13 @@
             "header": [],
             "url": {
               "raw": "{{ph-local-url}}/courses/657707078cf5db4b6e5e6450",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses", "657707078cf5db4b6e5e6450"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses",
+                "657707078cf5db4b6e5e6450"
+              ]
             }
           },
           "response": []
@@ -1089,8 +1304,13 @@
             "header": [],
             "url": {
               "raw": "{{ph-local-url}}/courses/656f138faac14eb8a7a73b79",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses", "656f138faac14eb8a7a73b79"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses",
+                "656f138faac14eb8a7a73b79"
+              ]
             }
           },
           "response": []
@@ -1111,8 +1331,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/courses/657707328cf5db4b6e5e6452",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses", "657707328cf5db4b6e5e6452"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses",
+                "657707328cf5db4b6e5e6452"
+              ]
             }
           },
           "response": []
@@ -1139,7 +1364,9 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/courses/65b6001fd6ffdd9bfc058329/assign-faculties",
-              "host": ["{{ph-local-url}}"],
+              "host": [
+                "{{ph-local-url}}"
+              ],
               "path": [
                 "courses",
                 "65b6001fd6ffdd9bfc058329",
@@ -1174,8 +1401,14 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/courses/65b5fed5d6ffdd9bfc05831a/get-faculties",
-              "host": ["{{ph-local-url}}"],
-              "path": ["courses", "65b5fed5d6ffdd9bfc05831a", "get-faculties"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "courses",
+                "65b5fed5d6ffdd9bfc05831a",
+                "get-faculties"
+              ]
             }
           },
           "response": []
@@ -1196,7 +1429,9 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/courses/656f2ab70909e55eba6b2fc1/remove-faculties",
-              "host": ["{{ph-local-url}}"],
+              "host": [
+                "{{ph-local-url}}"
+              ],
               "path": [
                 "courses",
                 "656f2ab70909e55eba6b2fc1",
@@ -1233,8 +1468,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/semester-registrations/create-semester-registration",
-              "host": ["{{ph-local-url}}"],
-              "path": ["semester-registrations", "create-semester-registration"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "semester-registrations",
+                "create-semester-registration"
+              ]
             }
           },
           "response": []
@@ -1261,8 +1501,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/semester-registrations/65b6185f13c0a33cdf61589a",
-              "host": ["{{ph-local-url}}"],
-              "path": ["semester-registrations", "65b6185f13c0a33cdf61589a"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "semester-registrations",
+                "65b6185f13c0a33cdf61589a"
+              ]
             }
           },
           "response": []
@@ -1283,8 +1528,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/semester-registrations/657872df6e1c4f8c4c2e7c0a",
-              "host": ["{{ph-local-url}}"],
-              "path": ["semester-registrations", "657872df6e1c4f8c4c2e7c0a"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "semester-registrations",
+                "657872df6e1c4f8c4c2e7c0a"
+              ]
             }
           },
           "response": []
@@ -1308,8 +1558,12 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/semester-registrations",
-              "host": ["{{ph-local-url}}"],
-              "path": ["semester-registrations"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "semester-registrations"
+              ]
             }
           },
           "response": []
@@ -1333,8 +1587,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/semester-registrations/65780ecdca374fc3df0db2ed",
-              "host": ["{{ph-local-url}}"],
-              "path": ["semester-registrations", "65780ecdca374fc3df0db2ed"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "semester-registrations",
+                "65780ecdca374fc3df0db2ed"
+              ]
             }
           },
           "response": []
@@ -1367,9 +1626,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/offered-courses/create-offered-course",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "offered-courses", "create-offered-course"]
+              "path": [
+                "api",
+                "v1",
+                "offered-courses",
+                "create-offered-course"
+              ]
             }
           },
           "response": []
@@ -1391,7 +1657,9 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/offered-courses/65799a5a559fc6be799ec596",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
               "path": [
                 "api",
@@ -1429,9 +1697,15 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/offered-courses",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "offered-courses"]
+              "path": [
+                "api",
+                "v1",
+                "offered-courses"
+              ]
             }
           },
           "response": []
@@ -1462,9 +1736,16 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/offered-courses/my-offered-courses?page=1&limit=1",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
-              "path": ["api", "v1", "offered-courses", "my-offered-courses"],
+              "path": [
+                "api",
+                "v1",
+                "offered-courses",
+                "my-offered-courses"
+              ],
               "query": [
                 {
                   "key": "page",
@@ -1487,7 +1768,9 @@
             "url": {
               "raw": "http://localhost:5000/api/v1/academic-semesters/65646ac154dfafc1a9ce2806jjjjj",
               "protocol": "http",
-              "host": ["localhost"],
+              "host": [
+                "localhost"
+              ],
               "port": "5000",
               "path": [
                 "api",
@@ -1526,8 +1809,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/enrolled-courses/create-enrolled-course",
-              "host": ["{{ph-local-url}}"],
-              "path": ["enrolled-courses", "create-enrolled-course"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "enrolled-courses",
+                "create-enrolled-course"
+              ]
             }
           },
           "response": []
@@ -1557,8 +1845,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/enrolled-courses/my-enrolled-courses",
-              "host": ["{{ph-local-url}}"],
-              "path": ["enrolled-courses", "my-enrolled-courses"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "enrolled-courses",
+                "my-enrolled-courses"
+              ]
             }
           },
           "response": []
@@ -1585,8 +1878,13 @@
             },
             "url": {
               "raw": "{{ph-local-url}}/enrolled-courses/update-enrolled-course-marks",
-              "host": ["{{ph-local-url}}"],
-              "path": ["enrolled-courses", "update-enrolled-course-marks"]
+              "host": [
+                "{{ph-local-url}}"
+              ],
+              "path": [
+                "enrolled-courses",
+                "update-enrolled-course-marks"
+              ]
             }
           },
           "response": []
@@ -1601,7 +1899,9 @@
         "url": {
           "raw": "http://localhost:5000",
           "protocol": "http",
-          "host": ["localhost"],
+          "host": [
+            "localhost"
+          ],
           "port": "5000"
         }
       },
@@ -1613,14 +1913,18 @@
       "listen": "prerequest",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     },
     {
       "listen": "test",
       "script": {
         "type": "text/javascript",
-        "exec": [""]
+        "exec": [
+          ""
+        ]
       }
     }
   ],
