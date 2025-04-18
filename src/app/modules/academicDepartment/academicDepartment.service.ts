@@ -1,5 +1,7 @@
+import QueryBuilder from "../../builder/QueryBuilder";
 import { TAcademicDepartment } from "./academicDepartment.interface";
 import { AcademicDepartmentModel } from "./academicDepartment.model";
+import { AcademicDepartmentSearchableFields } from "./academicDepartmets.constant";
 
 // create academic dpt
 const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
@@ -17,11 +19,26 @@ const createAcademicDepartmentIntoDB = async (payload: TAcademicDepartment) => {
 // tai kon dept kon faculty er under e ta jana lagbe
 //  ekhane academicFaculty er data reference kora ache academicDepartment e.
 // tai academicFaculty er data dekhar jnno populate method use korchi
-const getAllAcademicDepartmentsFromDB = async () => {
-  const result = await AcademicDepartmentModel.find().populate(
-    "academicFaculty"
-  );
-  return result;
+const getAllAcademicDepartmentsFromDB = async (
+  query: Record<string, unknown>,
+) => {
+  const academicDepartmentQuery = new QueryBuilder(
+    AcademicDepartmentModel.find().populate('academicFaculty'),
+    query,
+  )
+    .search(AcademicDepartmentSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
+
+  const result = await academicDepartmentQuery.modelQuery;
+  const meta = await academicDepartmentQuery.countTotal();
+
+  return {
+    meta,
+    result,
+  };
 };
 
 // get single academic dpt

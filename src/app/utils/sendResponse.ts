@@ -1,4 +1,4 @@
-import { Response } from 'express';
+import { Response } from "express";
 
 type TMeta = {
   limit: number;
@@ -7,20 +7,19 @@ type TMeta = {
   totalPage: number;
 };
 
-
 type TResponse<T> = {
   statusCode: number;
   success: boolean;
   message?: string;
   meta?: TMeta;
-  data: T; // data ary, object, string ze kono kichu hote pare. tai generic type use korchi
+  data: T;
 };
 
-const sendResponse = <T>(res: Response, 
-  data: TResponse<T>) => {
+const sendResponse = <T>(res: Response, data: TResponse<T>) => {
   res.status(data?.statusCode).json({
     success: data.success,
     message: data.message,
+    meta: data.meta,
     data: data.data,
   });
 };
