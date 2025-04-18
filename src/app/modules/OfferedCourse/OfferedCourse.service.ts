@@ -172,6 +172,7 @@ const getMyOfferedCoursesFromDB = async (
   }
 
   //find current ongoing semester
+  // at a time 1ta semester ongoing thakbe
   const currentOngoingRegistrationSemester = await SemesterRegistration.findOne(
     {
       status: "ONGOING",
@@ -225,11 +226,13 @@ const getMyOfferedCoursesFromDB = async (
               $expr: {
                 $and: [
                   {
+                    // semester match
                     $eq: [
                       "$semesterRegistration",
                       "$$currentOngoingRegistrationSemester",
                     ],
                   },
+                  // student id match
                   {
                     $eq: ["$student", "$$currentStudent"], // variable er moto use kore $$
                   },
@@ -241,7 +244,7 @@ const getMyOfferedCoursesFromDB = async (
             },
           },
         ],
-        as: "enrolledCourses",
+        as: "enrolledCourses", // lookup korle as field add kora lage. data oi nam e cole ashe
       },
     },
     {

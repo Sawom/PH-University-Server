@@ -10,7 +10,6 @@ import { SemesterRegistration } from "./../semesterRegistration/semesterRegistra
 import { TEnrolledCourse } from "./enrolledCourse.interface";
 import EnrolledCourse from "./enrolledCourse.model";
 import { calculateGradeAndPoints } from "./enrolledCourse.utils";
-import { Grade } from './enrolledCourse.constant';
 
 const createEnrolledCourseIntoDB = async (
   userId: string,
@@ -60,7 +59,7 @@ const createEnrolledCourseIntoDB = async (
   const maxCredit = semesterRegistration?.maxCredit;
 
   // 1ta collection er reffer data zodi onno collection e reffer kore thake and eder kichu calculation lage
-  // then agrigation used hobe 
+  // then agrigation used hobe
   const enrolledCourses = await EnrolledCourse.aggregate([
     {
       $match: {
@@ -265,6 +264,7 @@ const updateEnrolledCourseMarksIntoDB = async (
     const { classTest1, classTest2, midTerm, finalTerm } =
       isCourseBelongToFaculty.courseMarks;
 
+    // % e hisab korle evabe =>  Math.ceil(classTest1) * .1 etc
     const totalMarks =
       Math.ceil(classTest1) +
       Math.ceil(midTerm) +
