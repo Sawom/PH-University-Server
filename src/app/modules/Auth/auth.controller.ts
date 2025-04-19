@@ -12,6 +12,8 @@ const loginUser = catchAsync(async (req, res) => {
   res.cookie("refreshToken", refreshToken, {
     secure: config.NODE_ENV === "production",
     httpOnly: true,
+    sameSite: "none", // frontend backend alada. hosting er somoy lagbe.
+    maxAge: 1000 * 60 * 60 * 24 * 365, // 1 bochor er jnno cookie set kora holo
   });
 
   sendResponse(res, {

@@ -21,12 +21,7 @@ const getAllstudentFromDB = async (query: Record<string, unknown>) => {
     ModelofStudent.find()
       .populate("user")
       .populate("admissionSemester")
-      .populate({
-        path: "academicDepartment",
-        populate: {
-          path: "academicFaculty",
-        },
-      }),
+      .populate("academicDepartment academicFaculty"), // ei 2ta field e database e save kortechi
     query
   )
     .search(studentSearchableFields)
