@@ -30,7 +30,8 @@ const getAllstudents: RequestHandler = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: "students are getting successfully",
-    data: result,
+    meta: result.meta,
+    data: result.result,
   });
 });
 
@@ -57,7 +58,7 @@ const updateStudent = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student is updated succesfully',
+    message: "Student is updated succesfully",
     data: result,
   });
 });

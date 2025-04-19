@@ -1,11 +1,11 @@
+import httpStatus from "http-status";
 import mongoose from "mongoose";
 import QueryBuilder from "../../builder/QueryBuilder";
+import AppError from "../../errors/AppError";
+import { User } from "../user/user.model";
 import { FacultySearchableFields } from "./faculty.constant";
 import { TFaculty } from "./faculty.interface";
 import { Faculty } from "./faculty.model";
-import httpStatus from "http-status";
-import AppError from "../../errors/AppError";
-import { User } from "../user/user.model";
 
 // get all faculty
 const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
@@ -20,7 +20,11 @@ const getAllFacultiesFromDB = async (query: Record<string, unknown>) => {
     .fields();
 
   const result = await facultyQuery.modelQuery;
-  return result;
+  const meta = await facultyQuery.countTotal();
+  return {
+    meta,
+    result,
+  };
 };
 
 // get single faculty
@@ -51,18 +55,18 @@ const updateFacultyIntoDB = async (id: string, payload: Partial<TFaculty>) => {
 };
 
 // delete faculty
-const deleteFacultyFromDB = async(id: string) =>{
-    const session = await mongoose.startSession();
-    try{
-        session.startTransaction();
+const deleteFacultyFromDB = async (id: string) => {
+  const session = await mongoose.startSession();
+  try {
+    session.startTransaction();
 
-        const deletedFaculty = await Faculty.findByIdAndUpdate(
-            id,
-            {isDeleted: true},
-            {new: true, session},
-        )
-         if (!deletedFaculty) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete faculty');
+    const deletedFaculty = await Faculty.findByIdAndUpdate(
+      id,
+      { isDeleted: true },
+      { new: true, session }
+    );
+    if (!deletedFaculty) {
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete faculty");
     }
 
     // get user _id from deletedFaculty
@@ -71,29 +75,27 @@ const deleteFacultyFromDB = async(id: string) =>{
     const deletedUser = await User.findByIdAndUpdate(
       userId,
       { isDeleted: true },
-      { new: true, session },
+      { new: true, session }
     );
 
     if (!deletedUser) {
-      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete user');
+      throw new AppError(httpStatus.BAD_REQUEST, "Failed to delete user");
     }
 
     await session.commitTransaction();
     await session.endSession();
 
     return deletedFaculty;
-
-
-    }catch (err: any) {
+  } catch (err: any) {
     await session.abortTransaction();
     await session.endSession();
     throw new Error(err);
   }
-}
+};
 
-export const FacultyServices ={
-    getAllFacultiesFromDB,
-    getSingleFacultyFromDB,
-    updateFacultyIntoDB,
-    deleteFacultyFromDB,
-}
+export const FacultyServices = {
+  getAllFacultiesFromDB,
+  getSingleFacultyFromDB,
+  updateFacultyIntoDB,
+  deleteFacultyFromDB,
+};
