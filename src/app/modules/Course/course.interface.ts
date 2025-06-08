@@ -11,7 +11,7 @@ export type TCourse = {
   code: number;
   credits: number;
   isDeleted?: boolean;
-  preRequisiteCourses: [TPreRequisiteCourses];
+  preRequisiteCourses?: [TPreRequisiteCourses];
 };
 
 // same course multiple faculty nite paren. tai faculty ary nea
