@@ -55,7 +55,7 @@ const createStudentIntoDB = async (
   );
 
   if (!academicDepartment) {
-    throw new AppError(400, "Aademic department not found");
+    throw new AppError(400, "Academic department not found");
   }
   payload.academicFaculty = academicDepartment.academicFaculty;
 
@@ -126,8 +126,11 @@ const createFacultyIntoDB = async (
   //if password is not given , use deafult password
   userData.password = password || (config.default_password as string);
 
-  //set student role
+  //set faculty role
   userData.role = "faculty";
+
+  //set faculty email
+  userData.email = payload.email;
 
   // find academic department info
   const academicDepartment = await AcademicDepartmentModel.findById(
